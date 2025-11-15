@@ -1,0 +1,98 @@
+[gd_scene load_steps=15 format=3 uid="uid://iiepqa0uouyw"]
+
+[ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/enemy.tscn" id="1_mn38w"]
+[ext_resource type="Texture2D" uid="uid://we0gpuwb1oym" path="res://Assets/Sprites/ENEMYSPERMANIMATEDGIF-ezgif.com-gif-to-sprite-converter.png" id="2_6x22g"]
+[ext_resource type="AudioStream" uid="uid://dsldh8q0phl7" path="res://Assets/Sound Design/SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="3_kw8al"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6q44"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(4552, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_41gik"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(0, 1280, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_36lmg"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(1138, 1280, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k4int"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(2276, 1280, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7h0mu"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(3414, 1280, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5f7ed"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(4552, 1280, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnrat"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(0, 1920, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_arok7"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(1138, 1920, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb0hs"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(2276, 1920, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x35jv"]
+atlas = ExtResource("2_6x22g")
+region = Rect2(3414, 1920, 1138, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ar5y4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6q44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_41gik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_36lmg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k4int")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7h0mu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5f7ed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnrat")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_arok7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vb0hs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x35jv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="EnemySperm" instance=ExtResource("1_mn38w")]
+hp = 1
+points = 20
+death_sound = ExtResource("3_kw8al")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(3, 22)
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_ar5y4")
+frame_progress = 0.10000325
+
+[node name="CollisionShape2D" parent="." index="1"]
+position = Vector2(-1.015, -2)
+scale = Vector2(1.18, 1.18)

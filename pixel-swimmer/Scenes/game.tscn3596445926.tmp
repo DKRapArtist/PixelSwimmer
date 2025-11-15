@@ -1,0 +1,109 @@
+[gd_scene load_steps=16 format=3 uid="uid://byoikuyfq74cj"]
+
+[ext_resource type="Script" uid="uid://cvey1tmljnqih" path="res://Scripts/sperm.gd" id="1_qxrlw"]
+[ext_resource type="Texture2D" uid="uid://2nv72grlmhon" path="res://Assets/Sprites/SPERMANIMATEDGIF-ezgif.com-gif-to-sprite-converter.png" id="2_3dryh"]
+[ext_resource type="Texture2D" uid="uid://bm7cfmopwcwy8" path="res://Assets/CERVIX SPERM GAME BACKGROUND PIXELATED.png" id="2_wrm1d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3dryh"]
+radius = 9.0
+height = 28.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wowpa"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(0, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6g32"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(1138, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l0tm"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(2276, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v158k"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(3414, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fw4"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(4552, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgsr"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(0, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5yvi"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(1138, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku1e"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(2276, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfjv2"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(3414, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1phco"]
+atlas = ExtResource("2_3dryh")
+region = Rect2(4552, 640, 1138, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nb51f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wowpa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i6g32")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v158k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4fw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5yvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfjv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1phco")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Game" type="Node2D"]
+
+[node name="Sperm" type="CharacterBody2D" parent="."]
+script = ExtResource("1_qxrlw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sperm"]
+position = Vector2(555, 533)
+shape = SubResource("CapsuleShape2D_3dryh")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Sperm"]
+position = Vector2(556, 542)
+scale = Vector2(0.19947276, 0.1765625)
+sprite_frames = SubResource("SpriteFrames_nb51f")
+autoplay = "default"
+frame_progress = 0.08206436
+
+[node name="CervixSpermGameBackgroundPixelated" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(554, 324)
+scale = Vector2(0.39257813, 0.42447913)
+texture = ExtResource("2_wrm1d")
