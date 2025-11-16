@@ -21,6 +21,7 @@ buses/default_bus_layout=""
 [autoload]
 
 SettingsManager="*res://Scripts/settings_manager.gd"
+MenuMusic="*res://Scripts/menu_music.gd"
 
 [display]
 

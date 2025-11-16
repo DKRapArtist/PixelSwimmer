@@ -2,12 +2,16 @@ extends Control
 
 #variables
 var origin : String = "main_menu"
+const MENU_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer Menu Music.wav")
 
 #functions
 func _ready():
-	get_tree().paused = false
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	SettingsManager.load_settings()
 	update_settings_ui()
+#plays menu music
+	if origin == "main_menu":
+		MenuMusic.play_menu_music(MENU_MUSIC)
 
 func open_from_pause():
 	origin = "pause_menu"

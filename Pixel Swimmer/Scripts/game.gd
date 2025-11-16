@@ -23,6 +23,8 @@ extends Node2D
 @onready var death_sfx_player: AudioStreamPlayer = $SFX/DeathSfxPlayer
 
 #variables
+const GAME_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer Game Music.wav")
+const GAME_OVER_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer Game Over Music.wav")
 
 #player score
 var score := 0:
@@ -36,6 +38,8 @@ var high_score
 
 #READY FUNCTION #run this code when the scene starts and everything is in place
 func _ready() -> void:
+	MenuMusic.play_menu_music(GAME_MUSIC)
+	
 	pause_menu.visible = false
 	SettingsManager.load_settings()
 	
@@ -162,9 +166,9 @@ func _on_enemy_hit():
 	enemy_hit_sound.play()
 
 func _on_player_killed():
-	$InGameMusic.stop()
-	$GameOverMusic.play()
+	MenuMusic.play_game_over(GAME_OVER_MUSIC)
 	player_death_sound.play()
+	$UILayer/HUD/PauseButton.visible = false
 
 	gos.set_score(score)
 	gos.set_high_score(high_score)

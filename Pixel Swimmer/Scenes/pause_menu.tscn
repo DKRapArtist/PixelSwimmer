@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://ctmnc8vem7jt0"]
+[gd_scene load_steps=13 format=3 uid="uid://ctmnc8vem7jt0"]
 
 [ext_resource type="Script" uid="uid://hoyf36n0mgmh" path="res://Scripts/pause_menu.gd" id="1_u8tnp"]
 [ext_resource type="Texture2D" uid="uid://c2m3q2qnmymm6" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Resume BUTTON (not hovered).png" id="2_sjs17"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://1npnqh3y7n8h" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Quit BUTTON (hovered).png" id="7_0fi7f"]
 [ext_resource type="Texture2D" uid="uid://6sry21sva7s7" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Options BUTTON (hovered).png" id="7_524vl"]
 [ext_resource type="Texture2D" uid="uid://4l08p5pi7edm" path="res://Assets/Backgrounds/CERVIX SPERM GAME BACKGROUND V3.png" id="11_0fi7f"]
-[ext_resource type="AudioStream" uid="uid://bbo5sktnx2wxn" path="res://Assets/Sound Design/Music/Pixel Swimmer Menu Music.wav" id="11_524vl"]
 [ext_resource type="Texture2D" uid="uid://cs3g6fg0ouefh" path="res://Assets/PIXEL SWIMMER MENU Button Assets/PAUSE TEXT.png" id="12_0fi7f"]
 [ext_resource type="PackedScene" uid="uid://cghi1x1nngvw8" path="res://Scenes/options.tscn" id="13_uscpe"]
 
@@ -63,11 +62,6 @@ texture = ExtResource("12_0fi7f")
 
 [node name="OptionsMenu" parent="." instance=ExtResource("13_uscpe")]
 physics_interpolation_mode = 1
-
-[node name="PauseMenuMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("11_524vl")
-volume_db = -5.0
-autoplay = true
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -1

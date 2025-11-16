@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=18 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/game.gd" id="1_wowpa"]
 [ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/RedCell.tscn" id="2_85qyi"]
 [ext_resource type="PackedScene" uid="uid://iiepqa0uouyw" path="res://Scenes/Enemy Scenes/EnemySperm.tscn" id="3_h4fw4"]
-[ext_resource type="AudioStream" uid="uid://bm4t57a6rg34e" path="res://Assets/Sound Design/Music/Pixel Swimmer Game Music.wav" id="4_3dryh"]
 [ext_resource type="PackedScene" uid="uid://twoqdubmjucf" path="res://Scenes/Enemy Scenes/MucusEnemy.tscn" id="4_85qyi"]
 [ext_resource type="PackedScene" uid="uid://bnjwk32m2suwc" path="res://Scenes/hud.tscn" id="4_h4fw4"]
 [ext_resource type="AudioStream" uid="uid://d1ef886jlby15" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Shooting SFX.wav" id="4_nnt18"]
@@ -16,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://dufgfdbx8t0xd" path="res://Assets/Still PIXELS/bubble particle VERY SMALL.png" id="7_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://dgwpep3vmh6sf" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Pause BUTTON (Hovered).png" id="7_v158k"]
 [ext_resource type="Texture2D" uid="uid://4l08p5pi7edm" path="res://Assets/Backgrounds/CERVIX SPERM GAME BACKGROUND V3.png" id="10_ldgsr"]
-[ext_resource type="AudioStream" uid="uid://duniy6w6gwclv" path="res://Assets/Sound Design/Music/Pixel Swimmer Game Over Music.wav" id="16_nnt18"]
 [ext_resource type="PackedScene" uid="uid://ctmnc8vem7jt0" path="res://Scenes/pause_menu.tscn" id="18_85qyi"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ldgsr"]
@@ -103,10 +101,10 @@ scale = Vector2(0.5843101, 0.61272013)
 texture_normal = ExtResource("6_1l0tm")
 texture_hover = ExtResource("7_v158k")
 
-[node name="GameOverScreen" parent="UILayer" instance=ExtResource("5_o5yvi")]
+[node name="PauseMenu" parent="UILayer" instance=ExtResource("18_85qyi")]
 visible = false
 
-[node name="PauseMenu" parent="UILayer" instance=ExtResource("18_85qyi")]
+[node name="GameOverScreen" parent="UILayer" instance=ExtResource("5_o5yvi")]
 visible = false
 
 [node name="BubbleParticles" type="GPUParticles2D" parent="."]
@@ -119,15 +117,6 @@ process_material = SubResource("ParticleProcessMaterial_ldgsr")
 position = Vector2(270, -50)
 amount = 20
 process_material = SubResource("ParticleProcessMaterial_ldgsr")
-
-[node name="InGameMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_3dryh")
-volume_db = -10.0
-autoplay = true
-
-[node name="GameOverMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("16_nnt18")
-volume_db = -5.0
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
 [connection signal="pressed" from="UILayer/HUD/PauseButton" to="." method="_on_pause_button_pressed"]
