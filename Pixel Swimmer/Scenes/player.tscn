@@ -1,0 +1,198 @@
+[gd_scene load_steps=22 format=3 uid="uid://cxqykb82x7b5d"]
+
+[ext_resource type="Script" uid="uid://cvey1tmljnqih" path="res://Scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Texture2D" uid="uid://2nv72grlmhon" path="res://Assets/Sprites/SPERMANIMATEDGIF-ezgif.com-gif-to-sprite-converter.png" id="2_6t5aa"]
+[ext_resource type="AudioStream" uid="uid://dmoykrnncoeb3" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Hit SFX.wav" id="3_6t5aa"]
+[ext_resource type="PackedScene" uid="uid://dem6ixaredkh6" path="res://Scenes/heart.tscn" id="4_vgqql"]
+[ext_resource type="AudioStream" uid="uid://c2jhvinbj5ynt" path="res://Assets/Sound Design/SFX/Pixel Swimmer Low Health SFX.wav" id="5_fkybt"]
+[ext_resource type="PackedScene" uid="uid://bilmsn6dwb60u" path="res://Scenes/blackheart.tscn" id="5_x3wgy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1l0tm"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(0, 3840, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v158k"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(1138, 3840, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4fw4"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(2276, 3840, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ldgsr"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(3414, 3840, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5yvi"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(4552, 3840, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rku1e"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(0, 4480, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfjv2"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(1138, 4480, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1phco"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(2276, 4480, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb51f"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(3414, 4480, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nnt18"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(4552, 4480, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewbju"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(0, 5120, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85qyi"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(1138, 5120, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iivbl"]
+atlas = ExtResource("2_6t5aa")
+region = Rect2(2276, 5120, 1138, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fkybt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1l0tm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v158k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4fw4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ldgsr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5yvi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rku1e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rfjv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1phco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb51f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nnt18")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewbju")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85qyi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iivbl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vgqql"]
+radius = 12.0
+height = 50.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 2
+motion_mode = 1
+script = ExtResource("1_cvnsp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 14.000001)
+scale = Vector2(0.3, 0.284)
+sprite_frames = SubResource("SpriteFrames_fkybt")
+autoplay = "default"
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+shape = SubResource("CapsuleShape2D_vgqql")
+metadata/_edit_lock_ = true
+
+[node name="Muzzle" type="Marker2D" parent="." groups=["player"]]
+position = Vector2(1, -45)
+
+[node name="TakeDamage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_6t5aa")
+volume_db = 5.0
+
+[node name="health_bar" type="CanvasLayer" parent="."]
+
+[node name="RedHearts" type="VBoxContainer" parent="health_bar"]
+offset_left = 477.5
+offset_top = 65.0
+offset_right = 535.5
+offset_bottom = 220.0
+size_flags_horizontal = 6
+
+[node name="heart" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart" instance=ExtResource("4_vgqql")]
+position = Vector2(30, 24)
+
+[node name="heart2" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart2" instance=ExtResource("4_vgqql")]
+position = Vector2(30, 24)
+
+[node name="heart3" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart3" instance=ExtResource("4_vgqql")]
+position = Vector2(30, 24)
+
+[node name="BlackHearts" type="VBoxContainer" parent="health_bar"]
+visible = false
+offset_left = 477.5
+offset_top = 65.0
+offset_right = 535.5
+offset_bottom = 220.0
+size_flags_horizontal = 6
+
+[node name="heart" type="TextureRect" parent="health_bar/BlackHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Black Heart" parent="health_bar/BlackHearts/heart" instance=ExtResource("5_x3wgy")]
+position = Vector2(30, 24)
+
+[node name="heart2" type="TextureRect" parent="health_bar/BlackHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Black Heart" parent="health_bar/BlackHearts/heart2" instance=ExtResource("5_x3wgy")]
+position = Vector2(30, 24)
+
+[node name="heart3" type="TextureRect" parent="health_bar/BlackHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Black Heart" parent="health_bar/BlackHearts/heart3" instance=ExtResource("5_x3wgy")]
+position = Vector2(30, 24)
+
+[node name="LowHealth" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fkybt")
+volume_db = -5.0
