@@ -249,7 +249,7 @@ animations = [{
 }]
 
 [node name="Heart" type="AnimatedSprite2D"]
-scale = Vector2(0.15, 0.15)
+scale = Vector2(0.13, 0.13)
 sprite_frames = SubResource("SpriteFrames_jolyy")
 autoplay = "default"
 frame_progress = 0.67225206

@@ -83,7 +83,8 @@ func _process(_delta):
 		shoot()
 
 func shoot():
-	laser_shot.emit(laser_scene, muzzle.global_position)
+	var location := muzzle.global_position
+	laser_shot.emit(laser_scene, location)
 
 # ───────────────────────────────────────────────
 # MOVEMENT + CLAMP

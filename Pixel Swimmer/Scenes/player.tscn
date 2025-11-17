@@ -148,21 +148,21 @@ custom_minimum_size = Vector2(58.775, 49.72)
 layout_mode = 2
 
 [node name="Heart" parent="health_bar/RedHearts/heart" instance=ExtResource("4_vgqql")]
-position = Vector2(30, 24)
+position = Vector2(30, 25)
 
 [node name="heart2" type="TextureRect" parent="health_bar/RedHearts"]
 custom_minimum_size = Vector2(58.775, 49.72)
 layout_mode = 2
 
 [node name="Heart" parent="health_bar/RedHearts/heart2" instance=ExtResource("4_vgqql")]
-position = Vector2(30, 24)
+position = Vector2(30, 16)
 
 [node name="heart3" type="TextureRect" parent="health_bar/RedHearts"]
 custom_minimum_size = Vector2(58.775, 49.72)
 layout_mode = 2
 
 [node name="Heart" parent="health_bar/RedHearts/heart3" instance=ExtResource("4_vgqql")]
-position = Vector2(30, 24)
+position = Vector2(30, 7)
 
 [node name="BlackHearts" type="VBoxContainer" parent="health_bar"]
 visible = false
