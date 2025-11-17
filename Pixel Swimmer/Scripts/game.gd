@@ -153,15 +153,19 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	e.hit.connect(_on_enemy_hit)
 	enemy_container.add_child(e)
 
-func _on_enemy_killed(points, death_sound: AudioStream, source: Node) -> void:
+func _on_enemy_killed(points, death_sound, source):
 	if death_sound:
 		death_sfx_player.stream = death_sound
 		death_sfx_player.play()
 
-	if source is Laser:
-		score += points
+	if is_instance_valid(source):
+		# Only do checks or calls on source inside this block
+		if source is Laser:
+			score += points
+
 	if score > high_score:
 		high_score = score
+
 
 func _on_enemy_hit():
 	enemy_hit_sound.play()

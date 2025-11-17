@@ -25,10 +25,16 @@ func _process(delta: float) -> void:
 		elif player.pitch_scale > max_pitch_scale:
 			player.pitch_scale = max_pitch_scale
 	
-func play_menu_music(stream: AudioStream):
+func play_menu_music(stream: AudioStream) -> void:
+	# If this music is already playing, do nothing
+	if player.playing and player.stream == stream:
+		return
+
+	# If it's a different stream, switch to it
 	if player.stream != stream:
 		player.stream = stream
-		  # Reset menu music pitch to normal so menus don't get weird
+
+	# Reset pitch when starting menu music
 	player.pitch_scale = 1.0
 	player.play()
 

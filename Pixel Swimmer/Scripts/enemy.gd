@@ -1,7 +1,7 @@
 class_name Enemy
 extends Area2D
 
-signal enemy_killed(points: int, death_sound: AudioStream, source: Node)
+signal enemy_killed(points, death_sound, source)
 signal hit
 
 @export var speed: int = 200

@@ -14,7 +14,6 @@ func take_damage(amount: int, source: Node) -> void:
 	super.take_damage(amount, source)
 
 func die(source: Node) -> void:
-	# Get a reference to the player (adjust path to your scene)
 	var player := get_tree().current_scene.get_node("Player")
 	if is_instance_valid(player):
 		player.take_damage(retaliate_damage)
