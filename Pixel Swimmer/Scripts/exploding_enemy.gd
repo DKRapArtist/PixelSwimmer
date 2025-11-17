@@ -14,19 +14,20 @@ func take_damage(amount: int, source: Node) -> void:
 	super.take_damage(amount, source)
 
 func die(source: Node) -> void:
-	# Trigger particles
+	# Get a reference to the player (adjust path to your scene)
+	var player := get_tree().current_scene.get_node("Player")
+	if is_instance_valid(player):
+		player.take_damage(retaliate_damage)
+
 	var explosion := $ExplodingVFX
 	explosion.emitting = true
-	
-	# Play explosion sound
+
 	var sfx := $ExplosionSound
 	sfx.play()
 
 	explosion.reparent(get_tree().current_scene)
 
-	# Optional: wait a short time so explosion is visible before continuing
 	await get_tree().create_timer(0.1).timeout
 
-	# Keep base behavior (score, sound, etc.)
 	enemy_killed.emit(points, death_sound, source)
 	queue_free()

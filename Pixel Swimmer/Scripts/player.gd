@@ -15,6 +15,8 @@ signal hit
 @export var SHOOT_MULTIPLIER := 1.3
 @export var margin := 32
 
+#variables
+
 var laser_scene := preload("res://Scenes/laser.tscn")
 
 # Slow effect

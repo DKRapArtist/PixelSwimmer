@@ -90,6 +90,7 @@ func show_options():
 func _pause_game():
 	get_tree().paused = true
 	pause_menu.show_pause()
+	$UILayer/HUD.visible = false
 
 #WHAT HAPPENS WHEN YOU RESUME THE GAME
 func _resume_game():
@@ -141,7 +142,7 @@ func _process(delta: float) -> void:
 func _on_player_laser_shot(laser_scene, location):
 	var laser: Laser = laser_scene.instantiate()
 	laser.global_position = location
-	laser.original = player          # set owner here
+	laser.original = laser         # set owner here
 	laser_container.add_child(laser)
 	player_shooting_sound.play()
 

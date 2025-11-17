@@ -455,7 +455,6 @@ offset_right = 279.0336
 offset_bottom = 692.3447
 scale = Vector2(1.337, 1.337)
 texture_normal = ExtResource("4_opfnp")
-texture_pressed = ExtResource("3_cp0ys")
 texture_hover = ExtResource("7_trj04")
 
 [connection signal="pressed" from="Buttons/Start" to="." method="_on_start_pressed"]
