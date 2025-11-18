@@ -28,10 +28,13 @@ var is_slowed := false
 
 var red_hearts_list: Array[TextureRect] = []
 var black_hearts_list: Array[TextureRect] = []
+var blue_hearts_list: Array[TextureRect] = []
 
-#can the player heal or not?
+#player buff defaults
 var can_heal: bool = true
 var is_poisoned: bool = false
+var has_shield: bool = false
+var shield_time_left: float = 0.0
 
 # ───────────────────────────────────────────────
 # Node References
@@ -39,6 +42,7 @@ var is_poisoned: bool = false
 @onready var muzzle: Node2D = $Muzzle
 @onready var red_hearts := $health_bar/RedHearts
 @onready var black_hearts := $health_bar/BlackHearts
+@onready var blue_hearts := $health_bar/BlueHearts
 @onready var damage_sfx := $TakeDamage
 @onready var low_health_sfx := $LowHealth
 
@@ -54,6 +58,10 @@ func _ready():
 	for heart in black_hearts.get_children():
 		if heart is TextureRect:
 			black_hearts_list.append(heart)
+
+	for heart in blue_hearts.get_children():
+		if heart is TextureRect:
+			blue_hearts_list.append(heart)
 
 	# Ensure display matches hp
 	update_heart_display()
@@ -79,14 +87,23 @@ func apply_slow(amount: float, duration: float):
 # ───────────────────────────────────────────────
 func update_heart_display():
 	for i in range(max_hp):
-		if is_poisoned:
+		if has_shield:
+			# Show blue hearts
+			blue_hearts_list[i].visible = i < hp
+			red_hearts_list[i].visible = false
+			black_hearts_list[i].visible = false
+
+		elif is_poisoned:
 			# Show black hearts
 			black_hearts_list[i].visible = i < hp
 			red_hearts_list[i].visible = false
-		else:
+			blue_hearts_list[i].visible = false
+
+		else: 
 			# Show red hearts
 			red_hearts_list[i].visible = i < hp
 			black_hearts_list[i].visible = false
+			blue_hearts_list[i].visible = false
 
 # Play low HP alert
 func low_health_alert():
@@ -100,9 +117,16 @@ func low_health_alert():
 # ───────────────────────────────────────────────
 # SHOOTING
 # ───────────────────────────────────────────────
-func _process(_delta):
+func _process(delta):
 	if Input.is_action_just_pressed("shoot"):
 		shoot()
+		
+	if has_shield:
+		shield_time_left -= delta
+	if shield_time_left <= 0.0:
+		shield_time_left = 0.0
+		has_shield = false
+		update_heart_display()
 
 func shoot():
 	var location := muzzle.global_position
@@ -131,6 +155,9 @@ func _physics_process(_delta):
 # DAMAGE + DEATH
 # ───────────────────────────────────────────────
 func take_damage(amount: int):
+	if has_shield:
+		return
+		
 	hp -= amount
 	if hp < 0:
 		hp = 0
@@ -160,11 +187,20 @@ func heal(amount: int):
 	low_health_alert()
 
 func apply_poison():
+	if has_shield:
+		return
 	is_poisoned = true
 	update_heart_display()
 
 func cure_poison():
 	is_poisoned = false
+	update_heart_display()
+
+func apply_shield(duration):
+	if is_poisoned:
+		return
+	has_shield = true
+	shield_time_left = duration
 	update_heart_display()
 # ───────────────────────────────────────────────
 # COLLISION WITH ENEMY
