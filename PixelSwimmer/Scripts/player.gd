@@ -27,15 +27,18 @@ var is_slowed := false
 @export var hp: int = 3
 
 var red_hearts_list: Array[TextureRect] = []
+var black_hearts_list: Array[TextureRect] = []
 
 #can the player heal or not?
 var can_heal: bool = true
+var is_poisoned: bool = false
 
 # ───────────────────────────────────────────────
 # Node References
 # ───────────────────────────────────────────────
 @onready var muzzle: Node2D = $Muzzle
 @onready var red_hearts := $health_bar/RedHearts
+@onready var black_hearts := $health_bar/BlackHearts
 @onready var damage_sfx := $TakeDamage
 @onready var low_health_sfx := $LowHealth
 
@@ -47,6 +50,10 @@ func _ready():
 	for heart in red_hearts.get_children():
 		if heart is TextureRect:
 			red_hearts_list.append(heart)
+
+	for heart in black_hearts.get_children():
+		if heart is TextureRect:
+			black_hearts_list.append(heart)
 
 	# Ensure display matches hp
 	update_heart_display()
@@ -71,8 +78,15 @@ func apply_slow(amount: float, duration: float):
 # UPDATE HEART UI
 # ───────────────────────────────────────────────
 func update_heart_display():
-	for i in range(red_hearts_list.size()):
-		red_hearts_list[i].visible = (i < hp)
+	for i in range(max_hp):
+		if is_poisoned:
+			# Show black hearts
+			black_hearts_list[i].visible = i < hp
+			red_hearts_list[i].visible = false
+		else:
+			# Show red hearts
+			red_hearts_list[i].visible = i < hp
+			black_hearts_list[i].visible = false
 
 # Play low HP alert
 func low_health_alert():
@@ -138,15 +152,20 @@ func die():
 #Healing
 func heal(amount: int):
 	#this makes it so NOTHING can heal the player when can_heal is set to false
-	if not can_heal:
+	if is_poisoned:
 		return
 		
-	hp += amount
-	if hp > max_hp:
-		hp = max_hp
+	hp = clamp(hp + amount, 0, max_hp)
 	update_heart_display()
 	low_health_alert()
 
+func apply_poison():
+	is_poisoned = true
+	update_heart_display()
+
+func cure_poison():
+	is_poisoned = false
+	update_heart_display()
 # ───────────────────────────────────────────────
 # COLLISION WITH ENEMY
 # ───────────────────────────────────────────────

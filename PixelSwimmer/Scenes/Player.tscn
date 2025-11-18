@@ -214,7 +214,6 @@ layout_mode = 2
 position = Vector2(30, -56)
 
 [node name="BlackHearts" type="VBoxContainer" parent="health_bar"]
-visible = false
 offset_left = 477.5
 offset_top = 65.0
 offset_right = 535.5

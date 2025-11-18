@@ -8,6 +8,6 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(damage) #damages player
 		
 		#disable healing
-		body.can_heal = false
+		body.apply_poison()
 		
 		take_damage(hp,body)
