@@ -164,6 +164,55 @@ layout_mode = 2
 [node name="Heart" parent="health_bar/RedHearts/heart3" instance=ExtResource("4_vgqql")]
 position = Vector2(30, 7)
 
+[node name="heart4" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart4" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -2)
+
+[node name="heart5" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart5" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -11)
+
+[node name="heart6" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart6" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -20)
+
+[node name="heart7" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart7" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -29)
+
+[node name="heart8" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart8" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -38)
+
+[node name="heart9" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart9" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -47)
+
+[node name="heart10" type="TextureRect" parent="health_bar/RedHearts"]
+custom_minimum_size = Vector2(58.775, 49.72)
+layout_mode = 2
+
+[node name="Heart" parent="health_bar/RedHearts/heart10" instance=ExtResource("4_vgqql")]
+position = Vector2(30, -56)
+
 [node name="BlackHearts" type="VBoxContainer" parent="health_bar"]
 visible = false
 offset_left = 477.5

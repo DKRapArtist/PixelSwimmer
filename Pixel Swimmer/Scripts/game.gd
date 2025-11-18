@@ -2,6 +2,7 @@ extends Node2D
 
 #export variables
 @export var enemy_scenes: Array[PackedScene] = []
+@export var buff_scenes: Array[PackedScene] = []
 
 #onready variables
 @onready var player := $Player
@@ -10,8 +11,10 @@ extends Node2D
 @onready var pause_menu := $UILayer/PauseMenu
 @onready var options_menu := $UILayer/PauseMenu/OptionsMenu
 @onready var laser_container = $LaserContainer
-@onready var timer = $EnemySpawnTimer
 @onready var enemy_container = $EnemyContainer
+@onready var buff_container = $BuffContainer
+@onready var timer = $EnemySpawnTimer
+@onready var buff_timer = $BuffSpawnTimer
 @onready var player_spawn := $PlayerSpawn
 @onready var pb = $Parallax2D
 
@@ -71,6 +74,18 @@ func save_game():
 
 #background movment speed
 var scroll_speed = 300
+
+#making buffs stay away from enemy
+const BUFF_AVOID_RADIUS := 32.0
+
+func is_position_over_buff(pos: Vector2) -> bool:
+	for buff in buff_container.get_children():
+		# Only care about actual buff nodes
+		if buff is Buffs:
+			var dist := pos.distance_to(buff.global_position)
+			if dist < BUFF_AVOID_RADIUS:
+				return true
+	return false
 
 # ------------------------------------------------------------
 # PAUSE RESET — IMPORTANT
@@ -147,11 +162,29 @@ func _on_player_laser_shot(laser_scene, location):
 	player_shooting_sound.play()
 
 func _on_enemy_spawn_timer_timeout() -> void:
+	var spawn_pos: Vector2
+	var tries := 0
+	var max_tries := 10
+
+	while true:
+		# Pick a random position like before
+		spawn_pos = Vector2(randf_range(50, 500), -50)
+
+		# If this position is not over any buff, accept it
+		if not is_position_over_buff(spawn_pos):
+			break
+
+		tries += 1
+		if tries >= max_tries:
+			# Give up to avoid infinite loop – just use this position
+			break
+
 	var e = enemy_scenes.pick_random().instantiate()
-	e.global_position = Vector2(randf_range(50, 500), -50)
+	e.global_position = spawn_pos
 	e.enemy_killed.connect(_on_enemy_killed)
 	e.hit.connect(_on_enemy_hit)
 	enemy_container.add_child(e)
+
 
 func _on_enemy_killed(points, death_sound, source):
 	if death_sound:
@@ -182,3 +215,12 @@ func _on_player_killed():
 
 	await get_tree().create_timer(0.5).timeout
 	gos.visible = true
+
+func _on_buff_picked():
+	$SFX/Buff.play()
+
+func _on_buff_spawn_timer_timeout() -> void:
+	var e = buff_scenes.pick_random().instantiate()
+	e.global_position = Vector2(randf_range(50, 500), -50)
+	e.picked_up.connect(_on_buff_picked)
+	buff_container.add_child(e)

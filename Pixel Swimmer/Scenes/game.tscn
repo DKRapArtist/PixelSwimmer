@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=22 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/game.gd" id="1_wowpa"]
 [ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/RedCell.tscn" id="2_85qyi"]
@@ -10,12 +10,15 @@
 [ext_resource type="AudioStream" uid="uid://dmoykrnncoeb3" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Hit SFX.wav" id="5_ewbju"]
 [ext_resource type="PackedScene" uid="uid://dcen0c2824kuh" path="res://Scenes/game_over_screen.tscn" id="5_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://bgvie58h567jd" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Pause BUTTON (not Hovered).png" id="6_1l0tm"]
+[ext_resource type="PackedScene" uid="uid://c2orhu2qpvtdk" path="res://Scenes/Enemy Scenes/parasite.tscn" id="6_7nbq1"]
 [ext_resource type="AudioStream" uid="uid://clwvwh7clcc0p" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Death Sound SFX.wav" id="6_85qyi"]
 [ext_resource type="AudioStream" uid="uid://d0c6trblj1p3t" path="res://Assets/Sound Design/SFX/Pixel Swimmer Hit SFX.wav" id="6_ewbju"]
 [ext_resource type="PackedScene" uid="uid://cxqykb82x7b5d" path="res://Scenes/player.tscn" id="6_i6g32"]
+[ext_resource type="PackedScene" uid="uid://dbt45orohv8ti" path="res://Scenes/buffs.tscn" id="6_iivbl"]
 [ext_resource type="Texture2D" uid="uid://dufgfdbx8t0xd" path="res://Assets/Still PIXELS/bubble particle VERY SMALL.png" id="7_o5yvi"]
 [ext_resource type="Texture2D" uid="uid://dgwpep3vmh6sf" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Pause BUTTON (Hovered).png" id="7_v158k"]
 [ext_resource type="Texture2D" uid="uid://4l08p5pi7edm" path="res://Assets/Backgrounds/CERVIX SPERM GAME BACKGROUND V3.png" id="10_ldgsr"]
+[ext_resource type="AudioStream" uid="uid://tjp1snwtwhxt" path="res://Assets/Sound Design/SFX/Pixel Swimmer Buff SFX.wav" id="13_iivbl"]
 [ext_resource type="PackedScene" uid="uid://ctmnc8vem7jt0" path="res://Scenes/pause_menu.tscn" id="18_85qyi"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ldgsr"]
@@ -35,7 +38,8 @@ anim_speed_min = -1000.0
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_wowpa")
-enemy_scenes = Array[PackedScene]([ExtResource("2_85qyi"), ExtResource("3_h4fw4"), ExtResource("4_85qyi"), ExtResource("5_85qyi")])
+enemy_scenes = Array[PackedScene]([ExtResource("2_85qyi"), ExtResource("3_h4fw4"), ExtResource("4_85qyi"), ExtResource("5_85qyi"), ExtResource("6_7nbq1")])
+buff_scenes = Array[PackedScene]([ExtResource("6_iivbl")])
 
 [node name="Player" parent="." instance=ExtResource("6_i6g32")]
 
@@ -43,8 +47,13 @@ enemy_scenes = Array[PackedScene]([ExtResource("2_85qyi"), ExtResource("3_h4fw4"
 
 [node name="LaserContainer" type="Node2D" parent="." groups=["player"]]
 
+[node name="BuffContainer" type="Node2D" parent="."]
+
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
+autostart = true
+
+[node name="BuffSpawnTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
@@ -79,6 +88,9 @@ volume_db = 5.0
 [node name="PlayerDeath" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("6_85qyi")
 volume_db = -2.0
+
+[node name="Buff" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("13_iivbl")
 
 [node name="DeathSfxPlayer" type="AudioStreamPlayer" parent="SFX"]
 
@@ -120,4 +132,5 @@ amount = 20
 process_material = SubResource("ParticleProcessMaterial_ldgsr")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="BuffSpawnTimer" to="." method="_on_buff_spawn_timer_timeout"]
 [connection signal="pressed" from="UILayer/HUD/PauseButton" to="." method="_on_pause_button_pressed"]

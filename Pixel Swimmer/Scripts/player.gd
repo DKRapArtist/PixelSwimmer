@@ -23,8 +23,8 @@ var laser_scene := preload("res://Scenes/laser.tscn")
 var is_slowed := false
 
 # HP + UI
-@export var max_hp := 3
-var hp := max_hp
+@export var max_hp := 10
+@export var hp: int = 3
 
 var red_hearts_list: Array[TextureRect] = []
 
@@ -74,8 +74,11 @@ func update_heart_display():
 # Play low HP alert
 func low_health_alert():
 	if hp == 1:
-		if low_health_sfx:
+		if low_health_sfx and not low_health_sfx.is_playing():
 			low_health_sfx.play()
+	elif hp > 1:
+		if low_health_sfx and low_health_sfx.is_playing():
+			low_health_sfx.stop()
 
 # ───────────────────────────────────────────────
 # SHOOTING
@@ -112,6 +115,8 @@ func _physics_process(_delta):
 # ───────────────────────────────────────────────
 func take_damage(amount: int):
 	hp -= amount
+	if hp < 0:
+		hp = 0
 	damage_sfx.play()
 
 	if hp <= 0:
@@ -126,6 +131,14 @@ func take_damage(amount: int):
 func die():
 	killed.emit()
 	queue_free()
+
+#Healing
+func heal(amount: int):
+	hp += amount
+	if hp > max_hp:
+		hp = max_hp
+	update_heart_display()
+	low_health_alert()
 
 # ───────────────────────────────────────────────
 # COLLISION WITH ENEMY

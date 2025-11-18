@@ -1,8 +1,12 @@
 class_name Enemy
 extends Area2D
 
+#signals
 signal enemy_killed(points, death_sound, source)
 signal hit
+
+#variables
+var is_dead: bool = false
 
 @export var speed: int = 200
 @export var hp: int = 2
@@ -23,6 +27,9 @@ func _on_body_entered(body: Node2D) -> void:
 		take_damage(hp,body)
 
 func take_damage(amount: int, source: Node) -> void:
+	if is_dead:
+		return
+		
 	hp -= amount
 	if hp <= 0:
 		die(source)

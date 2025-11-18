@@ -15,5 +15,9 @@ func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Enemy:
+		if area.is_dead:
+			queue_free()
+			return
+			
 		area.take_damage(damage, original)
 		queue_free()

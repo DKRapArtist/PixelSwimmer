@@ -14,6 +14,10 @@ func take_damage(amount: int, source: Node) -> void:
 	super.take_damage(amount, source)
 
 func die(source: Node) -> void:
+	if is_dead:
+		return
+	is_dead = true
+	
 	var player := get_tree().current_scene.get_node("Player")
 	if is_instance_valid(player):
 		player.take_damage(retaliate_damage)
