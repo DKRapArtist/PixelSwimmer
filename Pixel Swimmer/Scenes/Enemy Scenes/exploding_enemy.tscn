@@ -1,8 +1,8 @@
 [gd_scene load_steps=69 format=3 uid="uid://cwodwj7ljvtq5"]
 
-[ext_resource type="Script" uid="uid://c2cfrvhonkqi8" path="res://Scripts/exploding_enemy.gd" id="1_aplyw"]
-[ext_resource type="AudioStream" uid="uid://c62u8b0acqtfk" path="res://Assets/Sound Design/SFX/Pixel Swimmer Exploding Enemy Death Sound SFX.wav" id="2_6mdwv"]
-[ext_resource type="Texture2D" uid="uid://cabmnueu222eu" path="res://Assets/Sprites/SPIKEYPATHOGENANIMATEDGIF-ezgif.com-gif-to-sprite-converter.png" id="2_aplyw"]
+[ext_resource type="Script" uid="uid://c2cfrvhonkqi8" path="res://Scripts/Enemy Scripts/ExplodingEnemy.gd" id="1_aplyw"]
+[ext_resource type="AudioStream" uid="uid://c62u8b0acqtfk" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Exploding Enemy Death Sound SFX.wav" id="2_6mdwv"]
+[ext_resource type="Texture2D" uid="uid://cabmnueu222eu" path="res://Assets/Sprites/Enemy Sprites/SpikeyPathogenSprite.png" id="2_aplyw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w1pbb"]
 atlas = ExtResource("2_aplyw")

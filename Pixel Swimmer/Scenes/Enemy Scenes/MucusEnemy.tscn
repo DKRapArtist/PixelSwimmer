@@ -1,8 +1,8 @@
 [gd_scene load_steps=56 format=3 uid="uid://twoqdubmjucf"]
 
-[ext_resource type="Script" uid="uid://dxovlhsj6v7om" path="res://Scripts/mucus_enemy.gd" id="1_icq0p"]
-[ext_resource type="AudioStream" uid="uid://sprr5yaf6bmo" path="res://Assets/Sound Design/SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="2_khdue"]
-[ext_resource type="Texture2D" uid="uid://b657r88i5ap67" path="res://Assets/Sprites/CERVICALMUCUSANIMATIONGIF-ezgif.com-gif-to-sprite-converter.png" id="2_uly0g"]
+[ext_resource type="Script" uid="uid://dxovlhsj6v7om" path="res://Scripts/Enemy Scripts/MucusEnemy.gd" id="1_icq0p"]
+[ext_resource type="AudioStream" uid="uid://sprr5yaf6bmo" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="2_khdue"]
+[ext_resource type="Texture2D" uid="uid://b657r88i5ap67" path="res://Assets/Sprites/Enemy Sprites/MucusEnemySprite.png" id="2_uly0g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_khdue"]
 atlas = ExtResource("2_uly0g")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=36 format=3 uid="uid://c2orhu2qpvtdk"]
 
-[ext_resource type="Script" uid="uid://c8tduiywm8ymc" path="res://Scripts/enemy.gd" id="1_ercen"]
-[ext_resource type="AudioStream" uid="uid://2w1p24w4ge52" path="res://Assets/Sound Design/SFX/Pixel Swimmer Red Cell Death Sound SFX.wav" id="2_yc0n7"]
-[ext_resource type="Texture2D" uid="uid://bho18y4edlk8g" path="res://Assets/Sprites/PARASITEWORMANIMATIONGIF-ezgif.com-gif-to-sprite-converter.png" id="3_yusrt"]
+[ext_resource type="Script" uid="uid://dodd6g8jdsm1w" path="res://Scripts/Enemy Scripts/ParasiteEnemy.gd" id="1_welqb"]
+[ext_resource type="AudioStream" uid="uid://sprr5yaf6bmo" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="2_ercen"]
+[ext_resource type="Texture2D" uid="uid://bho18y4edlk8g" path="res://Assets/Sprites/Enemy Sprites/ParasiteSprite.png" id="3_yusrt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbp6b"]
 atlas = ExtResource("3_yusrt")
@@ -228,9 +228,8 @@ size = Vector2(57, 127)
 [node name="Parasite" type="Area2D"]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_ercen")
-speed = 300
-death_sound = ExtResource("2_yc0n7")
+script = ExtResource("1_welqb")
+death_sound = ExtResource("2_ercen")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)

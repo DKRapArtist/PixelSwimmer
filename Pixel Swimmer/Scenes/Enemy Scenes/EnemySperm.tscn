@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://iiepqa0uouyw"]
 
 [ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/RedCell.tscn" id="1_6x22g"]
-[ext_resource type="Texture2D" uid="uid://we0gpuwb1oym" path="res://Assets/Sprites/ENEMYSPERMANIMATEDGIF-ezgif.com-gif-to-sprite-converter.png" id="2_6x22g"]
-[ext_resource type="AudioStream" uid="uid://sprr5yaf6bmo" path="res://Assets/Sound Design/SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="2_kw8al"]
+[ext_resource type="Texture2D" uid="uid://we0gpuwb1oym" path="res://Assets/Sprites/Enemy Sprites/EnemySpermSprite.png" id="2_6x22g"]
+[ext_resource type="AudioStream" uid="uid://sprr5yaf6bmo" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="2_kw8al"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_b6q44"]
 atlas = ExtResource("2_6x22g")

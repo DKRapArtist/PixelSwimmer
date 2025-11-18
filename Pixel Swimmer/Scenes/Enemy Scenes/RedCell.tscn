@@ -1,8 +1,8 @@
 [gd_scene load_steps=30 format=3 uid="uid://cxuverh8konyg"]
 
-[ext_resource type="Script" uid="uid://c8tduiywm8ymc" path="res://Scripts/enemy.gd" id="1_1f0kj"]
-[ext_resource type="Texture2D" uid="uid://bws2cfbukt77x" path="res://Assets/Sprites/BloodCellGIF-ezgif.com-gif-to-sprite-converter.png" id="1_hghv2"]
-[ext_resource type="AudioStream" uid="uid://2w1p24w4ge52" path="res://Assets/Sound Design/SFX/Pixel Swimmer Red Cell Death Sound SFX.wav" id="2_srscs"]
+[ext_resource type="Script" uid="uid://c8tduiywm8ymc" path="res://Scripts/Enemy Scripts/BaseEnemy.gd" id="1_1f0kj"]
+[ext_resource type="Texture2D" uid="uid://bws2cfbukt77x" path="res://Assets/Sprites/Enemy Sprites/RedCell.png" id="1_hghv2"]
+[ext_resource type="AudioStream" uid="uid://2w1p24w4ge52" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Red Cell Death Sound SFX.wav" id="2_srscs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1f0kj"]
 atlas = ExtResource("1_hghv2")

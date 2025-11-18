@@ -28,6 +28,9 @@ var is_slowed := false
 
 var red_hearts_list: Array[TextureRect] = []
 
+#can the player heal or not?
+var can_heal: bool = true
+
 # ───────────────────────────────────────────────
 # Node References
 # ───────────────────────────────────────────────
@@ -134,6 +137,10 @@ func die():
 
 #Healing
 func heal(amount: int):
+	#this makes it so NOTHING can heal the player when can_heal is set to false
+	if not can_heal:
+		return
+		
 	hp += amount
 	if hp > max_hp:
 		hp = max_hp

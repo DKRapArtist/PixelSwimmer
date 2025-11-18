@@ -20,8 +20,8 @@ buses/default_bus_layout=""
 
 [autoload]
 
-SettingsManager="*res://Scripts/settings_manager.gd"
-MenuMusic="*res://Scripts/menu_music.gd"
+SettingsManager="*res://Scripts/Global Scripts/settings_manager.gd"
+MenuMusic="*res://Scripts/Global Scripts/menu_music.gd"
 
 [display]
 
