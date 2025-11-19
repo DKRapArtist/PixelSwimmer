@@ -55,7 +55,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="BuffSpawnTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 20.0
 autostart = true
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
@@ -78,22 +78,28 @@ metadata/_edit_lock_ = true
 
 [node name="PlayerShooting" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("10_8btxg")
-volume_db = 2.0
+bus = &"SfxBus"
 
 [node name="PlayerHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("11_lbgny")
+bus = &"SfxBus"
 
 [node name="EnemyHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("12_asw58")
-volume_db = 5.0
+bus = &"SfxBus"
 
 [node name="PlayerDeath" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("13_rcb2t")
-volume_db = -2.0
+volume_db = -10.0
+bus = &"SfxBus"
 
 [node name="BuffSfxPlayer" type="AudioStreamPlayer" parent="SFX"]
+volume_db = -6.0
+bus = &"SfxBus"
 
 [node name="DeathSfxPlayer" type="AudioStreamPlayer" parent="SFX"]
+volume_db = -2.0
+bus = &"SfxBus"
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 

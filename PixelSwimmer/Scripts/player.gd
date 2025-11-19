@@ -136,20 +136,26 @@ func shoot():
 # MOVEMENT + CLAMP
 # ───────────────────────────────────────────────
 func _physics_process(_delta):
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var x := Input.get_axis("ui_left", "ui_right")
+	var y := Input.get_axis("ui_up", "ui_down")
+	var direction := Vector2(x, y)
 
 	# Horizontal movement
-	if direction != 0:
-		velocity.x = direction * SPEED * SHOOT_MULTIPLIER
+	if direction != Vector2.ZERO:
+		velocity = direction * SPEED * SHOOT_MULTIPLIER
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 
 	move_and_slide()
 
 	# Clamp AFTER move_and_slide, not before
 	var screen_size = get_viewport_rect().size
+	var half_height = screen_size.y * 0.5
+	
 	global_position.x = clamp(global_position.x, margin, screen_size.x - margin)
-	global_position.y = clamp(global_position.y, margin, screen_size.y - margin)
+	global_position.y = clamp(global_position.y, half_height + margin, screen_size.y - margin)
+	
 
 # ───────────────────────────────────────────────
 # DAMAGE + DEATH

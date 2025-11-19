@@ -10,7 +10,7 @@ var pitch_change_rate: float = 0.0002    # how fast it ramps up (tweak this)
 
 func _ready():
 	add_child(player)
-	player.bus = "Master"
+	player.bus = "MusicBus"
 	player.autoplay = false
 	# Important: ignore global pause
 	process_mode = Node.PROCESS_MODE_ALWAYS
