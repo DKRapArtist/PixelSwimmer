@@ -8,9 +8,13 @@ func _ready():
 	SettingsManager.load_settings()
 	#loads menu music
 	MenuMusic.play_menu_music(MENU_MUSIC)
-	
-func _on_start_pressed():
+
+#Main Menu Button Connections
+func _on_survival_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Root.tscn")
+
+func _on_story_mode_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Menu Scenes/Chapter1.tscn")
 
 func _on_options_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Menu Scenes/options.tscn")
