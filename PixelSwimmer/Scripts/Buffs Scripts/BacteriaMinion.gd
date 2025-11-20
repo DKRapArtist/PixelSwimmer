@@ -12,6 +12,7 @@ signal enemy_killed(points, death_sound, source)
 var move_direction: int = 1  # 1 = right, -1 = left
 const SCREEN_SIZE: Vector2 = Vector2(540, 960)
 const MARGIN: float = 30.0
+var owner_player: Player = null
 
 @onready var fire_timer = $FireTimer
 @onready var muzzle: Marker2D = $Muzzle
@@ -27,7 +28,7 @@ func shoot() -> void:
 	var laser: Laser = minion_laser_scene.instantiate()
 	get_tree().current_scene.add_child(laser)
 	laser.global_position = muzzle.global_position
-	laser.original = self
+	laser.original = owner_player
 	laser.direction = Vector2.UP
 
 	if sfx_shoot:

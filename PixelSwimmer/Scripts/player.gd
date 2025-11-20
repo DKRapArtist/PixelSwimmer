@@ -4,7 +4,7 @@ extends CharacterBody2D
 # ───────────────────────────────────────────────
 # Signals
 # ───────────────────────────────────────────────
-signal laser_shot(laser_scene, location)
+signal laser_shot(laser_scene, location, shooter)
 signal killed
 signal hit
 
@@ -130,7 +130,7 @@ func _process(delta):
 
 func shoot():
 	var location := muzzle.global_position
-	laser_shot.emit(laser_scene, location)
+	laser_shot.emit(laser_scene, location, self)
 
 # ───────────────────────────────────────────────
 # MOVEMENT + CLAMP

@@ -158,10 +158,10 @@ func _process(delta: float) -> void:
 # ENEMY & LASER LOGIC
 # ------------------------------------------------------------
 
-func _on_player_laser_shot(laser_scene, location):
+func _on_player_laser_shot(laser_scene, location, shooter):
 	var laser: Laser = laser_scene.instantiate()
 	laser.global_position = location
-	laser.original = laser         # set owner here
+	laser.original = shooter          # IMPORTANT: shooter, not laser
 	laser_container.add_child(laser)
 	player_shooting_sound.play()
 
@@ -195,9 +195,7 @@ func _on_enemy_killed(points, death_sound, source):
 		death_sfx_player.stream = death_sound
 		death_sfx_player.play()
 
-	if is_instance_valid(source):
-		# Only do checks or calls on source inside this block
-		if source is Laser:
+	if is_instance_valid(source) and source is Player:
 			score += points
 
 	if score > high_score:
@@ -258,4 +256,5 @@ func _spawn_minion() -> void:
 
 	minion = bacteria_minion_scene.instantiate()
 	minion.global_position = minion_spawn.global_position
+	minion.owner_player = player
 	enemy_container.add_child(minion)
