@@ -7,7 +7,7 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(3) 
 		take_damage(hp,body)
 
-func take_damage(amount: int, source: Node) -> void:
+func take_damage(amount: int, source: Node = null) -> void:
 	if source is Player:
 		source.take_damage(retaliate_damage)
 
@@ -17,10 +17,10 @@ func die(source: Node) -> void:
 	if is_dead:
 		return
 	is_dead = true
-	
-	var player := get_tree().current_scene.get_node("Player")
-	if is_instance_valid(player):
-		player.take_damage(retaliate_damage)
+
+	# Only punish if the killer is the player
+	if source is Player:
+		source.take_damage(retaliate_damage)
 
 	var explosion := $ExplodingVFX
 	explosion.emitting = true

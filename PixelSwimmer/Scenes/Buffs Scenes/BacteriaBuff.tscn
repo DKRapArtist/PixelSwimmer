@@ -1,6 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://b7efnhh46b6uf"]
+[gd_scene load_steps=33 format=3 uid="uid://b7efnhh46b6uf"]
 
 [ext_resource type="Script" uid="uid://cys1sa0p34fle" path="res://Scripts/Buffs Scripts/BacteriaBuff.gd" id="1_kat5j"]
+[ext_resource type="AudioStream" uid="uid://dhvhlhmac5qv2" path="res://Assets/Sound Design/SFX/Buffs SFX/PillSFX.wav" id="2_6y75i"]
 [ext_resource type="Texture2D" uid="uid://ct87upphkgft6" path="res://Assets/Sprites/Buff Sprites/BacteriaBuff.png" id="3_6y75i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bs6x0"]
@@ -208,6 +209,7 @@ height = 98.0
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_kat5j")
+buff_sound = ExtResource("2_6y75i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.05, 0.05)

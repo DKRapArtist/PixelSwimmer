@@ -26,11 +26,12 @@ func _on_body_entered(body: Node2D) -> void:
 		body.take_damage(damage) #damages player
 		take_damage(hp,body)
 
-func take_damage(amount: int, source: Node) -> void:
+func take_damage(amount: int, source: Node = null) -> void: 
 	if is_dead:
 		return
 		
 	hp -= amount
+	
 	if hp <= 0:
 		die(source)
 	else:

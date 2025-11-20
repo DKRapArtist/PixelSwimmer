@@ -17,15 +17,12 @@ func _on_area_entered(area: Area2D) -> void:
 		return
 
 	if area is Enemy:
+		# If enemy is already dead, just remove the laser
 		if area.is_dead:
 			queue_free()
 			return
 
-		var src := original
-		if src != null and is_instance_valid(src):
-			area.take_damage(damage, src)
-		else:
-			# call overload / default that doesn't need a source
-			area.take_damage(damage)
-
+		# Otherwise do damage, then remove the laser
+		var src = original if is_instance_valid(original) else null
+		area.take_damage(damage, src)
 		queue_free()

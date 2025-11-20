@@ -3,7 +3,7 @@ extends Enemy
 
 @export var laser_scene: PackedScene
 @export var fire_interval := 1.5
-@onready var fire_timer: Timer = $FireTimer
+@onready var fire_timer = $FireTimer
 
 var player: Node2D
 

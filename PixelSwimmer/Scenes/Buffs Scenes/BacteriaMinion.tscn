@@ -1,8 +1,9 @@
-[gd_scene load_steps=34 format=3 uid="uid://vrlj2y515uph"]
+[gd_scene load_steps=35 format=3 uid="uid://vrlj2y515uph"]
 
 [ext_resource type="Script" uid="uid://cbexghch2ubh6" path="res://Scripts/Buffs Scripts/BacteriaMinion.gd" id="1_5l1aq"]
 [ext_resource type="PackedScene" uid="uid://beve6o6hw0tfo" path="res://Scenes/Laser Scenes/MinionLaser.tscn" id="2_wnmp6"]
 [ext_resource type="Texture2D" uid="uid://da2feuksbqnrr" path="res://Assets/Sprites/Enemy Sprites/BacteriaSquidSprite.png" id="3_o8f5i"]
+[ext_resource type="AudioStream" uid="uid://d1ef886jlby15" path="res://Assets/Sound Design/SFX/PlayerShootingSFX.wav" id="4_86i5h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q5ix6"]
 atlas = ExtResource("3_o8f5i")
@@ -238,6 +239,9 @@ autostart = true
 [node name="Muzzle" type="Marker2D" parent="."]
 position = Vector2(0, -62)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_86i5h")
+bus = &"SfxBus"
+
 [connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]
 [connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

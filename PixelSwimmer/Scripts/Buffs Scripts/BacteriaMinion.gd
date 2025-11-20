@@ -13,8 +13,9 @@ var move_direction: int = 1  # 1 = right, -1 = left
 const SCREEN_SIZE: Vector2 = Vector2(540, 960)
 const MARGIN: float = 30.0
 
-@onready var fire_timer: Timer = $FireTimer
+@onready var fire_timer = $FireTimer
 @onready var muzzle: Marker2D = $Muzzle
+@onready var sfx_shoot: AudioStreamPlayer2D = $Sfx
 
 func _ready() -> void:
 	fire_timer.wait_time = fire_interval
@@ -28,6 +29,9 @@ func shoot() -> void:
 	laser.global_position = muzzle.global_position
 	laser.original = self
 	laser.direction = Vector2.UP
+
+	if sfx_shoot:
+		sfx_shoot.play()
 	
 func die(source: Node) -> void:
 	enemy_killed.emit(death_sound, source)
