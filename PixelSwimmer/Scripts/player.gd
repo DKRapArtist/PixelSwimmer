@@ -17,7 +17,7 @@ signal hit
 
 #variables
 
-var laser_scene := preload("res://Scenes/laser.tscn")
+var laser_scene := preload("res://Scenes/Laser Scenes/laser.tscn")
 
 # Slow effect
 var is_slowed := false
@@ -215,3 +215,6 @@ func _on_body_entered(body):
 	if body is Enemy:
 		body.take_damage(1, self)  # Pass the correct source!
 		take_damage(1)
+
+func _on_hit() -> void:
+	$"../SFX/EnemyHit".play()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=25 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/Root.gd" id="1_difym"]
 [ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/RedCell.tscn" id="2_am7h6"]
@@ -6,8 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://twoqdubmjucf" path="res://Scenes/Enemy Scenes/MucusEnemy.tscn" id="4_aoudc"]
 [ext_resource type="PackedScene" uid="uid://cwodwj7ljvtq5" path="res://Scenes/Enemy Scenes/exploding_enemy.tscn" id="5_ql2nr"]
 [ext_resource type="PackedScene" uid="uid://c2orhu2qpvtdk" path="res://Scenes/Enemy Scenes/parasite.tscn" id="6_7f8yv"]
+[ext_resource type="PackedScene" uid="uid://skbca5r28yxb" path="res://Scenes/Enemy Scenes/WhiteCell.tscn" id="7_dtygg"]
 [ext_resource type="PackedScene" uid="uid://dbt45orohv8ti" path="res://Scenes/Buffs Scenes/BaseBuff.tscn" id="7_ve1ck"]
 [ext_resource type="PackedScene" uid="uid://juu2o5trfgpq" path="res://Scenes/Buffs Scenes/AntidoteBuff.tscn" id="8_am7h6"]
+[ext_resource type="PackedScene" uid="uid://djwlm556wwhom" path="res://Scenes/Enemy Scenes/BossMinion.tscn" id="8_aoudc"]
 [ext_resource type="PackedScene" uid="uid://cxqykb82x7b5d" path="res://Scenes/Player.tscn" id="8_m1xq0"]
 [ext_resource type="PackedScene" uid="uid://cfdupj586hp3l" path="res://Scenes/Buffs Scenes/ShieldBuff.tscn" id="9_am7h6"]
 [ext_resource type="Texture2D" uid="uid://4l08p5pi7edm" path="res://Assets/Backgrounds/CERVIX SPERM GAME BACKGROUND V3.png" id="9_jcrtk"]
@@ -39,7 +41,7 @@ anim_speed_min = -1000.0
 
 [node name="Root" type="Node2D"]
 script = ExtResource("1_difym")
-enemy_scenes = Array[PackedScene]([ExtResource("2_am7h6"), ExtResource("3_dtygg"), ExtResource("4_aoudc"), ExtResource("5_ql2nr"), ExtResource("6_7f8yv")])
+enemy_scenes = Array[PackedScene]([ExtResource("2_am7h6"), ExtResource("3_dtygg"), ExtResource("4_aoudc"), ExtResource("5_ql2nr"), ExtResource("6_7f8yv"), ExtResource("7_dtygg"), ExtResource("8_aoudc")])
 buff_scenes = Array[PackedScene]([ExtResource("7_ve1ck"), ExtResource("8_am7h6"), ExtResource("9_am7h6")])
 
 [node name="Player" parent="." instance=ExtResource("8_m1xq0")]

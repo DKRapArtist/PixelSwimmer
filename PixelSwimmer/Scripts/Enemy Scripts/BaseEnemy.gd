@@ -35,3 +35,6 @@ func take_damage(amount: int, source: Node) -> void:
 		die(source)
 	else:
 		hit.emit()
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	queue_free()

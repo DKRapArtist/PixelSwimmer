@@ -390,3 +390,5 @@ scale = Vector2(0.13, 0.13)
 [node name="LowHealth" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_fkybt")
 volume_db = -5.0
+
+[connection signal="hit" from="." to="." method="_on_hit"]

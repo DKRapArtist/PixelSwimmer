@@ -200,7 +200,6 @@ func _on_enemy_killed(points, death_sound, source):
 	if score > high_score:
 		high_score = score
 
-
 func _on_enemy_hit():
 	enemy_hit_sound.play()
 
