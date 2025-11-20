@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=27 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/Root.gd" id="1_difym"]
 [ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/RedCell.tscn" id="2_am7h6"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://d1ef886jlby15" path="res://Assets/Sound Design/SFX/PlayerShootingSFX.wav" id="10_8btxg"]
 [ext_resource type="PackedScene" uid="uid://b7efnhh46b6uf" path="res://Scenes/Buffs Scenes/BacteriaBuff.tscn" id="11_aoudc"]
 [ext_resource type="AudioStream" uid="uid://dmoykrnncoeb3" path="res://Assets/Sound Design/SFX/DamageSFX/PlayerHitSFX.wav" id="11_lbgny"]
+[ext_resource type="PackedScene" uid="uid://cfdupj586hp3l" path="res://Scenes/Buffs Scenes/ShieldBuff.tscn" id="12_7f8yv"]
 [ext_resource type="AudioStream" uid="uid://d0c6trblj1p3t" path="res://Assets/Sound Design/SFX/DamageSFX/EnemyHit SFX.wav" id="12_asw58"]
 [ext_resource type="PackedScene" uid="uid://vrlj2y515uph" path="res://Scenes/Buffs Scenes/BacteriaMinion.tscn" id="13_ql2nr"]
 [ext_resource type="AudioStream" uid="uid://clwvwh7clcc0p" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Player Death Sound SFX.wav" id="13_rcb2t"]
@@ -43,7 +44,7 @@ anim_speed_min = -1000.0
 [node name="Root" type="Node2D"]
 script = ExtResource("1_difym")
 enemy_scenes = Array[PackedScene]([ExtResource("2_am7h6"), ExtResource("3_dtygg"), ExtResource("4_aoudc"), ExtResource("5_ql2nr"), ExtResource("6_7f8yv"), ExtResource("7_dtygg"), ExtResource("8_aoudc")])
-buff_scenes = Array[PackedScene]([ExtResource("7_ve1ck"), ExtResource("8_am7h6"), ExtResource("11_aoudc")])
+buff_scenes = Array[PackedScene]([ExtResource("7_ve1ck"), ExtResource("8_am7h6"), ExtResource("11_aoudc"), ExtResource("12_7f8yv")])
 bacteria_minion_scene = ExtResource("13_ql2nr")
 
 [node name="Player" parent="." instance=ExtResource("8_m1xq0")]
