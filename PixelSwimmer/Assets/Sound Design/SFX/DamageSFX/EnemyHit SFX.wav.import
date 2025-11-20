@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://d0c6trblj1p3t"
+path="res://.godot/imported/EnemyHit SFX.wav-93b97f57536f5c38a48a89d01acdb430.sample"
+
+[deps]
+
+source_file="res://Assets/Sound Design/SFX/DamageSFX/EnemyHit SFX.wav"
+dest_files=["res://.godot/imported/EnemyHit SFX.wav-93b97f57536f5c38a48a89d01acdb430.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

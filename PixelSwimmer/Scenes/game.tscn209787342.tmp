@@ -1,0 +1,123 @@
+[gd_scene load_steps=19 format=3 uid="uid://byoikuyfq74cj"]
+
+[ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/game.gd" id="1_wowpa"]
+[ext_resource type="PackedScene" uid="uid://cxuverh8konyg" path="res://Scenes/Enemy Scenes/RedCell.tscn" id="2_85qyi"]
+[ext_resource type="PackedScene" uid="uid://iiepqa0uouyw" path="res://Scenes/Enemy Scenes/EnemySperm.tscn" id="3_h4fw4"]
+[ext_resource type="PackedScene" uid="uid://twoqdubmjucf" path="res://Scenes/Enemy Scenes/MucusEnemy.tscn" id="4_85qyi"]
+[ext_resource type="PackedScene" uid="uid://bnjwk32m2suwc" path="res://Scenes/hud.tscn" id="4_h4fw4"]
+[ext_resource type="AudioStream" uid="uid://d1ef886jlby15" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Shooting SFX.wav" id="4_nnt18"]
+[ext_resource type="PackedScene" uid="uid://cwodwj7ljvtq5" path="res://Scenes/Enemy Scenes/exploding_enemy.tscn" id="5_85qyi"]
+[ext_resource type="AudioStream" uid="uid://dmoykrnncoeb3" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Hit SFX.wav" id="5_ewbju"]
+[ext_resource type="PackedScene" uid="uid://dcen0c2824kuh" path="res://Scenes/game_over_screen.tscn" id="5_o5yvi"]
+[ext_resource type="Texture2D" uid="uid://bgvie58h567jd" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Pause BUTTON (not Hovered).png" id="6_1l0tm"]
+[ext_resource type="AudioStream" uid="uid://clwvwh7clcc0p" path="res://Assets/Sound Design/SFX/Pixel Swimmer Player Death Sound SFX.wav" id="6_85qyi"]
+[ext_resource type="AudioStream" uid="uid://d0c6trblj1p3t" path="res://Assets/Sound Design/SFX/Pixel Swimmer Hit SFX.wav" id="6_ewbju"]
+[ext_resource type="PackedScene" uid="uid://cxqykb82x7b5d" path="res://Scenes/player.tscn" id="6_i6g32"]
+[ext_resource type="Texture2D" uid="uid://dufgfdbx8t0xd" path="res://Assets/Still PIXELS/bubble particle VERY SMALL.png" id="7_o5yvi"]
+[ext_resource type="Texture2D" uid="uid://dgwpep3vmh6sf" path="res://Assets/PIXEL SWIMMER MENU Button Assets/Pause BUTTON (Hovered).png" id="7_v158k"]
+[ext_resource type="Texture2D" uid="uid://4l08p5pi7edm" path="res://Assets/Backgrounds/CERVIX SPERM GAME BACKGROUND V3.png" id="10_ldgsr"]
+[ext_resource type="PackedScene" uid="uid://ctmnc8vem7jt0" path="res://Scenes/pause_menu.tscn" id="18_85qyi"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ldgsr"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(270, 1, 1)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+direction = Vector3(0, -1, 0)
+spread = 0.0
+initial_velocity_min = -1000.0
+initial_velocity_max = -1000.0
+angular_velocity_min = -1.6093254e-05
+angular_velocity_max = -1.6093254e-05
+gravity = Vector3(0, 98, 0)
+scale_max = 3.0
+anim_speed_min = -1000.0
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_wowpa")
+enemy_scenes = Array[PackedScene]([ExtResource("2_85qyi"), ExtResource("3_h4fw4"), ExtResource("4_85qyi"), ExtResource("5_85qyi")])
+
+[node name="Player" parent="." instance=ExtResource("6_i6g32")]
+
+[node name="EnemyContainer" type="Node2D" parent="."]
+
+[node name="LaserContainer" type="Node2D" parent="." groups=["player"]]
+
+[node name="EnemySpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="PlayerSpawn" type="Marker2D" parent="."]
+position = Vector2(275, 851)
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+repeat_size = Vector2(0, 958.865)
+metadata/_edit_lock_ = true
+
+[node name="Background" type="Sprite2D" parent="Parallax2D"]
+z_index = -1
+texture_repeat = 2
+scale = Vector2(0.52734375, 0.62434894)
+texture = ExtResource("10_ldgsr")
+centered = false
+region_rect = Rect2(0, 0, 540, 960)
+metadata/_edit_lock_ = true
+
+[node name="SFX" type="Node2D" parent="."]
+
+[node name="PlayerShooting" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("4_nnt18")
+volume_db = 2.0
+
+[node name="PlayerHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("5_ewbju")
+
+[node name="EnemyHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("6_ewbju")
+volume_db = 5.0
+
+[node name="PlayerDeath" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("6_85qyi")
+volume_db = -2.0
+
+[node name="DeathSfxPlayer" type="AudioStreamPlayer" parent="SFX"]
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" parent="UILayer" instance=ExtResource("4_h4fw4")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.0
+grow_vertical = 1
+
+[node name="PauseButton" type="TextureButton" parent="UILayer/HUD" groups=["player"]]
+z_index = 12
+layout_mode = 0
+offset_left = 208.0
+offset_top = 0.99999964
+offset_right = 308.0
+offset_bottom = 101.0
+scale = Vector2(0.5843101, 0.61272013)
+texture_normal = ExtResource("6_1l0tm")
+texture_hover = ExtResource("7_v158k")
+
+[node name="PauseMenu" parent="UILayer" instance=ExtResource("18_85qyi")]
+visible = false
+
+[node name="GameOverScreen" parent="UILayer" instance=ExtResource("5_o5yvi")]
+visible = false
+
+[node name="BubbleParticles" type="GPUParticles2D" parent="."]
+position = Vector2(270, -50)
+amount = 3
+texture = ExtResource("7_o5yvi")
+process_material = SubResource("ParticleProcessMaterial_ldgsr")
+
+[node name="StarParticles" type="GPUParticles2D" parent="."]
+position = Vector2(270, -50)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ldgsr")
+
+[connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="pressed" from="UILayer/HUD/PauseButton" to="." method="_on_pause_button_pressed"]

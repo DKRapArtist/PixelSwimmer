@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c62u8b0acqtfk"
+path="res://.godot/imported/Pixel Swimmer Exploding Enemy Death Sound SFX.wav-2ddafa6d15ade72f2cafa4d9c6ca0267.sample"
+
+[deps]
+
+source_file="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Exploding Enemy Death Sound SFX.wav"
+dest_files=["res://.godot/imported/Pixel Swimmer Exploding Enemy Death Sound SFX.wav-2ddafa6d15ade72f2cafa4d9c6ca0267.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
