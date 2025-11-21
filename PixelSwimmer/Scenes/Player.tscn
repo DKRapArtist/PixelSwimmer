@@ -563,7 +563,7 @@ volume_db = -5.0
 [node name="MinionSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(380, 860)
 
-[node name="DamageX2Anchor" type="Marker2D" parent="."]
-position = Vector2(20, -49)
+[node name="TextAnchor" type="Marker2D" parent="."]
+position = Vector2(3, -72)
 
 [connection signal="hit" from="." to="." method="_on_hit"]

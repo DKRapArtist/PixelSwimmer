@@ -1,6 +1,7 @@
-[gd_scene load_steps=42 format=3 uid="uid://juu2o5trfgpq"]
+[gd_scene load_steps=43 format=3 uid="uid://juu2o5trfgpq"]
 
 [ext_resource type="Script" uid="uid://cn6k4jw3jo3wv" path="res://Scripts/Buffs Scripts/AntidoteBuff.gd" id="1_7yjlt"]
+[ext_resource type="PackedScene" uid="uid://cv682y51d4pnk" path="res://Scenes/Text Scenes/AntidoteText.tscn" id="2_7gbtp"]
 [ext_resource type="Texture2D" uid="uid://l1co1ijsfh6u" path="res://Assets/Sprites/Buff Sprites/AntidoteSprite.png" id="2_7yjlt"]
 [ext_resource type="AudioStream" uid="uid://c5ckr3ykcqbiw" path="res://Assets/Sound Design/SFX/Buffs SFX/AntidoteSFX.wav" id="2_c6v5f"]
 
@@ -271,6 +272,7 @@ radius = 27.018513
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_7yjlt")
+antidote_text_scene = ExtResource("2_7gbtp")
 buff_sound = ExtResource("2_c6v5f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

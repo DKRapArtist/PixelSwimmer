@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://dbt45orohv8ti"]
+[gd_scene load_steps=41 format=3 uid="uid://dbt45orohv8ti"]
 
 [ext_resource type="Script" uid="uid://c55t6xkmkeb4a" path="res://Scripts/Buffs Scripts/BaseBuffs.gd" id="1_iqnug"]
 [ext_resource type="Texture2D" uid="uid://bd3c4r12aq6lp" path="res://Assets/Sprites/Buff Sprites/RedHeartSprite.png" id="2_iqnug"]
+[ext_resource type="PackedScene" uid="uid://ioayy7n45vaa" path="res://Scenes/Text Scenes/HealthText.tscn" id="2_ohbpt"]
 [ext_resource type="AudioStream" uid="uid://tjp1snwtwhxt" path="res://Assets/Sound Design/SFX/Buffs SFX/HeartBuffSFX.wav" id="2_scfcm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0idge"]
@@ -257,6 +258,7 @@ radius = 35.057095
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_iqnug")
+health_text_scene = ExtResource("2_ohbpt")
 buff_speed = 400
 buff_sound = ExtResource("2_scfcm")
 

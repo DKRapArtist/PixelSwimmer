@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv682y51d4pnk"]
+[gd_scene load_steps=6 format=3 uid="uid://c4k3l7im1l3ub"]
 
-[ext_resource type="Script" uid="uid://6h50mf4bq6fq" path="res://Scripts/Text Scripts/AntidoteText.gd" id="1_vmeuu"]
-[ext_resource type="FontFile" uid="uid://dyavrxg7xjiev" path="res://Assets/Fonts/Daydream DEMO.otf" id="2_l0s5w"]
+[ext_resource type="Script" uid="uid://xlibq56p3t53" path="res://Scripts/Text Scripts/MinionText.gd" id="1_22j7g"]
+[ext_resource type="FontFile" uid="uid://dyavrxg7xjiev" path="res://Assets/Fonts/Daydream DEMO.otf" id="2_2sq7q"]
 
 [sub_resource type="Animation" id="Animation_rioyc"]
 resource_name = "PopUp"
@@ -79,9 +79,8 @@ _data = {
 &"RESET": SubResource("Animation_qfnok")
 }
 
-[node name="AntidoteText" type="Marker2D"]
-script = ExtResource("1_vmeuu")
-antidote_text_scene = null
+[node name="MinionText" type="Marker2D"]
+script = ExtResource("1_22j7g")
 
 [node name="Label" type="Label" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -98,10 +97,10 @@ offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
-theme_override_colors/font_color = Color(0.16688034, 0.65685254, 0.13182458, 1)
+theme_override_colors/font_color = Color(0.84705883, 0.74509805, 0.16862746, 1)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("2_l0s5w")
-text = "+ Antidote"
+theme_override_fonts/font = ExtResource("2_2sq7q")
+text = "+ Minion"
 horizontal_alignment = 1
 vertical_alignment = 1
 
