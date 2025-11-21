@@ -9,16 +9,19 @@ signal killed
 signal hit
 
 # ───────────────────────────────────────────────
-# Configurable Variables
+#Variables
 # ───────────────────────────────────────────────
 @export var SPEED := 300.0
 @export var SHOOT_MULTIPLIER := 1.3
 @export var margin := 32
 
-#variables
-
+#laser variables
+@export var base_laser_damage = 1
+var laser_damage_multiplier := 1.0
 var laser_scene := preload("res://Scenes/Laser Scenes/laser.tscn")
 
+
+var buff_active = false
 # Slow effect
 var is_slowed := false
 
@@ -35,6 +38,8 @@ var can_heal: bool = true
 var is_poisoned: bool = false
 var has_shield: bool = false
 var shield_time_left: float = 0.0
+var has_damage_buff: bool = false
+var damage_time_left: float = 0.0
 
 # ───────────────────────────────────────────────
 # Node References
@@ -128,10 +133,21 @@ func _process(delta):
 		has_shield = false
 		update_heart_display()
 
+	if has_damage_buff:
+		damage_time_left -= delta
+	if damage_time_left <= 0.0:
+		damage_time_left = 0.0
+		has_damage_buff = false
+
 func shoot():
-	var location := muzzle.global_position
+	var location = muzzle.global_position
 	laser_shot.emit(laser_scene, location, self)
 
+func apply_damage_buff(duration):
+	if has_damage_buff:
+		return
+	has_damage_buff = true
+	damage_time_left = duration
 # ───────────────────────────────────────────────
 # MOVEMENT + CLAMP
 # ───────────────────────────────────────────────

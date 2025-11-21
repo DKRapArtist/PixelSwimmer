@@ -91,7 +91,6 @@ animations = [{
 
 [node name="EnemySperm" instance=ExtResource("1_6x22g")]
 speed = 200
-hp = 1
 death_sound = ExtResource("2_kw8al")
 
 [node name="AnimatedSprite2D" parent="." index="0"]

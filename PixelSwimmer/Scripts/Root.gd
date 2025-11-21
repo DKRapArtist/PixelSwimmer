@@ -1,8 +1,24 @@
 extends Node2D
 
 #export variables
-@export var enemy_scenes: Array[PackedScene] = []
-@export var buff_scenes: Array[PackedScene] = []
+var enemy_scenes: Array[PackedScene] = []
+var all_enemy_scenes: Array[PackedScene] = [
+		preload("res://Scenes/Enemy Scenes/EnemySperm.tscn"),
+		preload("res://Scenes/Enemy Scenes/RedCell.tscn"),
+		preload("res://Scenes/Enemy Scenes/MucusEnemy.tscn"),
+		preload("res://Scenes/Enemy Scenes/exploding_enemy.tscn"),
+		preload("res://Scenes/Enemy Scenes/WhiteCell.tscn"),
+		preload("res://Scenes/Enemy Scenes/parasite.tscn"),
+		preload("res://Scenes/Enemy Scenes/BossMinion.tscn")
+]
+var buff_scenes: Array[PackedScene] = []
+var all_buff_scenes: Array[PackedScene] = [
+	preload("res://Scenes/Buffs Scenes/BaseBuff.tscn"),
+	preload("res://Scenes/Buffs Scenes/ShieldBuff.tscn"),
+	preload("res://Scenes/Buffs Scenes/BacteriaBuff.tscn"),
+	preload("res://Scenes/Buffs Scenes/DamageBuff.tscn"),
+	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
+]
 @export var bacteria_minion_scene: PackedScene
 
 #onready variables
@@ -40,11 +56,36 @@ var score := 0:
 func set_score(value):
 	score = value
 	hud.score = score
+	
+	if score >= 250 and all_enemy_scenes[1] not in enemy_scenes:
+		enemy_scenes.append(all_enemy_scenes[1])
+	if score >= 500 and all_enemy_scenes[2] not in enemy_scenes:
+		enemy_scenes.append(all_enemy_scenes[2])
+	if score >= 750 and all_enemy_scenes[3] not in enemy_scenes:
+		enemy_scenes.append(all_enemy_scenes[3])
+	if score >= 1000 and all_enemy_scenes[4] not in enemy_scenes:
+		enemy_scenes.append(all_enemy_scenes[4])
+	if score >= 1500 and all_enemy_scenes[5] not in enemy_scenes:
+		enemy_scenes.append(all_enemy_scenes[5])
+	if score >= 2000 and all_enemy_scenes[6] not in enemy_scenes:
+		enemy_scenes.append(all_enemy_scenes[6])
+
+	if score >= 10 and all_buff_scenes[1] not in buff_scenes:
+		buff_scenes.append(all_buff_scenes[1])
+	if score >= 10 and all_buff_scenes[2] not in buff_scenes:
+		buff_scenes.append(all_buff_scenes[2])
+	if score >= 10 and all_buff_scenes[3] not in buff_scenes:
+		buff_scenes.append(all_buff_scenes[3])
+	if score >= 1500 and all_buff_scenes[4] not in buff_scenes:
+		buff_scenes.append(all_buff_scenes[4])
 
 var high_score
 
 #READY FUNCTION #run this code when the scene starts and everything is in place
 func _ready() -> void:
+	enemy_scenes.append(all_enemy_scenes[0])
+	buff_scenes.append(all_buff_scenes[0])
+	
 	MenuMusic.play_menu_music(GAME_MUSIC)
 	
 	pause_menu.visible = false
@@ -161,9 +202,11 @@ func _process(delta: float) -> void:
 func _on_player_laser_shot(laser_scene, location, shooter):
 	var laser: Laser = laser_scene.instantiate()
 	laser.global_position = location
-	laser.original = shooter          # IMPORTANT: shooter, not laser
+	laser.original = shooter
+	laser.damage = shooter.base_laser_damage * (2 if shooter.has_damage_buff else 1)
 	laser_container.add_child(laser)
 	player_shooting_sound.play()
+
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	var spawn_pos: Vector2
