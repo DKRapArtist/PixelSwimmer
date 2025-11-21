@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://drdtog0y5spwt"
-path="res://.godot/imported/DamageBuffSFX.wav-8e77234579ff8161a040348e4fb008d9.sample"
+path="res://.godot/imported/ShieldBuffSFX.wav-d1fd8dc21e5925fd7bc8344046ff3873.sample"
 
 [deps]
 
-source_file="res://Assets/Sound Design/SFX/Buffs SFX/DamageBuffSFX.wav"
-dest_files=["res://.godot/imported/DamageBuffSFX.wav-8e77234579ff8161a040348e4fb008d9.sample"]
+source_file="res://Assets/Sound Design/SFX/Buffs SFX/ShieldBuffSFX.wav"
+dest_files=["res://.godot/imported/ShieldBuffSFX.wav-d1fd8dc21e5925fd7bc8344046ff3873.sample"]
 
 [params]
 

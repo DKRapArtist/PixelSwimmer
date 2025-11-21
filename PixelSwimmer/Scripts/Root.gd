@@ -3,13 +3,13 @@ extends Node2D
 #export variables
 var enemy_scenes: Array[PackedScene] = []
 var all_enemy_scenes: Array[PackedScene] = [
-		preload("res://Scenes/Enemy Scenes/EnemySperm.tscn"),
-		preload("res://Scenes/Enemy Scenes/RedCell.tscn"),
-		preload("res://Scenes/Enemy Scenes/MucusEnemy.tscn"),
-		preload("res://Scenes/Enemy Scenes/exploding_enemy.tscn"),
-		preload("res://Scenes/Enemy Scenes/WhiteCell.tscn"),
-		preload("res://Scenes/Enemy Scenes/parasite.tscn"),
-		preload("res://Scenes/Enemy Scenes/BossMinion.tscn")
+		preload("res://Scenes/Enemy Scenes/EnemySperm.tscn"), 
+		preload("res://Scenes/Enemy Scenes/RedCell.tscn"),          #250
+		preload("res://Scenes/Enemy Scenes/MucusEnemy.tscn"),       #500
+		preload("res://Scenes/Enemy Scenes/exploding_enemy.tscn"),  #750
+		preload("res://Scenes/Enemy Scenes/WhiteCell.tscn"),       #1000
+		preload("res://Scenes/Enemy Scenes/parasite.tscn"),        #1500
+		preload("res://Scenes/Enemy Scenes/BossMinion.tscn")       #2000
 ]
 var buff_scenes: Array[PackedScene] = []
 var all_buff_scenes: Array[PackedScene] = [
@@ -57,26 +57,26 @@ func set_score(value):
 	score = value
 	hud.score = score
 	
-	if score >= 250 and all_enemy_scenes[1] not in enemy_scenes:
+	if score >= 250 and all_enemy_scenes[1] not in enemy_scenes:  #redcell
 		enemy_scenes.append(all_enemy_scenes[1])
-	if score >= 500 and all_enemy_scenes[2] not in enemy_scenes:
+	if score >= 500 and all_enemy_scenes[2] not in enemy_scenes:  #mucus
 		enemy_scenes.append(all_enemy_scenes[2])
-	if score >= 750 and all_enemy_scenes[3] not in enemy_scenes:
+	if score >= 750 and all_enemy_scenes[3] not in enemy_scenes:  #exploding enemy
 		enemy_scenes.append(all_enemy_scenes[3])
-	if score >= 1000 and all_enemy_scenes[4] not in enemy_scenes:
+	if score >= 1000 and all_enemy_scenes[4] not in enemy_scenes: #whitecells
 		enemy_scenes.append(all_enemy_scenes[4])
-	if score >= 1500 and all_enemy_scenes[5] not in enemy_scenes:
+	if score >= 1500 and all_enemy_scenes[5] not in enemy_scenes: #parasite
 		enemy_scenes.append(all_enemy_scenes[5])
-	if score >= 2000 and all_enemy_scenes[6] not in enemy_scenes:
+	if score >= 2000 and all_enemy_scenes[6] not in enemy_scenes: #bossminions
 		enemy_scenes.append(all_enemy_scenes[6])
 
-	if score >= 0 and all_buff_scenes[1] not in buff_scenes:
+	if score >= 0 and all_buff_scenes[1] not in buff_scenes:    #shieldbuff
 		buff_scenes.append(all_buff_scenes[1])
-	if score >= 0 and all_buff_scenes[2] not in buff_scenes:
+	if score >= 0 and all_buff_scenes[2] not in buff_scenes:    #minion
 		buff_scenes.append(all_buff_scenes[2])
-	if score >= 0 and all_buff_scenes[3] not in buff_scenes:
+	if score >= 500 and all_buff_scenes[3] not in buff_scenes:  #damage
 		buff_scenes.append(all_buff_scenes[3])
-	if score >= 1500 and all_buff_scenes[4] not in buff_scenes:
+	if score >= 1500 and all_buff_scenes[4] not in buff_scenes: #antidote
 		buff_scenes.append(all_buff_scenes[4])
 
 var high_score

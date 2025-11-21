@@ -1,7 +1,8 @@
-[gd_scene load_steps=36 format=3 uid="uid://c2orhu2qpvtdk"]
+[gd_scene load_steps=37 format=3 uid="uid://c2orhu2qpvtdk"]
 
 [ext_resource type="Script" uid="uid://dodd6g8jdsm1w" path="res://Scripts/Enemy Scripts/ParasiteEnemy.gd" id="1_welqb"]
 [ext_resource type="AudioStream" uid="uid://btqcdgucepuiq" path="res://Assets/Sound Design/SFX/Death SFX/Parasite SFX.wav" id="2_ercen"]
+[ext_resource type="PackedScene" uid="uid://cmcv3kylqbbuq" path="res://Scenes/Text Scenes/PoisonedText.tscn" id="2_yc0n7"]
 [ext_resource type="Texture2D" uid="uid://bho18y4edlk8g" path="res://Assets/Sprites/Enemy Sprites/ParasiteSprite.png" id="3_yusrt"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pbp6b"]
@@ -229,6 +230,7 @@ size = Vector2(57, 127)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_welqb")
+poisoned_text_scene = ExtResource("2_yc0n7")
 speed = 300
 hp = 3
 points = 30

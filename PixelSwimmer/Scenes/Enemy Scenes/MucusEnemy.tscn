@@ -1,6 +1,7 @@
-[gd_scene load_steps=56 format=3 uid="uid://twoqdubmjucf"]
+[gd_scene load_steps=57 format=3 uid="uid://twoqdubmjucf"]
 
 [ext_resource type="Script" uid="uid://dxovlhsj6v7om" path="res://Scripts/Enemy Scripts/MucusEnemy.gd" id="1_icq0p"]
+[ext_resource type="PackedScene" uid="uid://bwhgjv28iclhx" path="res://Scenes/Text Scenes/MucusText.tscn" id="2_2b7ak"]
 [ext_resource type="AudioStream" uid="uid://sprr5yaf6bmo" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Sperm Death Sound SFX.wav" id="2_khdue"]
 [ext_resource type="Texture2D" uid="uid://b657r88i5ap67" path="res://Assets/Sprites/Enemy Sprites/MucusEnemySprite.png" id="2_uly0g"]
 
@@ -369,6 +370,7 @@ radius = 41.01219
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_icq0p")
+mucus_text_scene = ExtResource("2_2b7ak")
 speed = 250
 points = 20
 death_sound = ExtResource("2_khdue")

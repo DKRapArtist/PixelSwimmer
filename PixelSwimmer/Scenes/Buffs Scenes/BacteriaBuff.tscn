@@ -214,7 +214,7 @@ minion_text_scene = ExtResource("2_bs6x0")
 buff_sound = ExtResource("2_6y75i")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.05, 0.05)
+scale = Vector2(0.06, 0.06)
 sprite_frames = SubResource("SpriteFrames_0f0d0")
 autoplay = "default"
 frame_progress = 0.15045695

@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://cv682y51d4pnk"]
+[gd_scene load_steps=6 format=3 uid="uid://bwhgjv28iclhx"]
 
-[ext_resource type="Script" uid="uid://6h50mf4bq6fq" path="res://Scripts/Text Scripts/AntidoteText.gd" id="1_vmeuu"]
-[ext_resource type="FontFile" uid="uid://dyavrxg7xjiev" path="res://Assets/Fonts/Daydream DEMO.otf" id="2_l0s5w"]
+[ext_resource type="Script" uid="uid://cva5l1avd8nf7" path="res://Scripts/Text Scripts/MucusText.gd" id="1_s1myx"]
+[ext_resource type="FontFile" uid="uid://dyavrxg7xjiev" path="res://Assets/Fonts/Daydream DEMO.otf" id="2_j27oe"]
 
 [sub_resource type="Animation" id="Animation_rioyc"]
 resource_name = "PopUp"
@@ -79,8 +79,8 @@ _data = {
 &"RESET": SubResource("Animation_qfnok")
 }
 
-[node name="AntidoteText" type="Marker2D"]
-script = ExtResource("1_vmeuu")
+[node name="MucusText" type="Marker2D"]
+script = ExtResource("1_s1myx")
 
 [node name="Label" type="Label" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -97,10 +97,10 @@ offset_bottom = 13.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.5, 1.5)
-theme_override_colors/font_color = Color(0.16688034, 0.65685254, 0.13182458, 1)
+theme_override_colors/font_color = Color(0.50352055, 0.5572671, 0.5679476, 1)
 theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("2_l0s5w")
-text = "+ Antidote"
+theme_override_fonts/font = ExtResource("2_j27oe")
+text = "Slowed"
 horizontal_alignment = 1
 vertical_alignment = 1
 
