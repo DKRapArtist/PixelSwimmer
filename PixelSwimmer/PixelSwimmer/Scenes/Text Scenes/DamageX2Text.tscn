@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://c18fvh7akv56g"]
+[gd_scene load_steps=6 format=3 uid="uid://c18fvh7akv56g"]
 
+[ext_resource type="Script" uid="uid://b84g0alcmgc8d" path="res://Scripts/Text Scripts/DamageX2Text.gd" id="1_qfnok"]
 [ext_resource type="FontFile" uid="uid://dyavrxg7xjiev" path="res://Assets/Fonts/Daydream DEMO.otf" id="1_rioyc"]
 
 [sub_resource type="Animation" id="Animation_rioyc"]
@@ -79,6 +80,7 @@ _data = {
 }
 
 [node name="DamageX2Text" type="Marker2D"]
+script = ExtResource("1_qfnok")
 
 [node name="Label" type="Label" parent="."]
 self_modulate = Color(1, 1, 1, 0)
@@ -107,3 +109,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_qfnok")
 }
 autoplay = "PopUp"
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

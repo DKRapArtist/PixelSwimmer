@@ -1,6 +1,7 @@
-[gd_scene load_steps=32 format=3 uid="uid://bhhufikbms585"]
+[gd_scene load_steps=33 format=3 uid="uid://bhhufikbms585"]
 
 [ext_resource type="Script" uid="uid://c6s2hepmsuh47" path="res://Scripts/Buffs Scripts/DamageBuff.gd" id="1_vhdh4"]
+[ext_resource type="PackedScene" uid="uid://c18fvh7akv56g" path="res://Scenes/Text Scenes/DamageX2Text.tscn" id="2_5f82n"]
 [ext_resource type="AudioStream" uid="uid://drdtog0y5spwt" path="res://Assets/Sound Design/SFX/Buffs SFX/DamageBuffSFX.wav" id="2_uu06k"]
 [ext_resource type="Texture2D" uid="uid://d03iapndo4e8n" path="res://Assets/Sprites/Buff Sprites/DamageBuffSprite.png" id="2_vhdh4"]
 
@@ -201,6 +202,7 @@ radius = 35.057095
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_vhdh4")
+damage_text_scene = ExtResource("2_5f82n")
 buff_sound = ExtResource("2_uu06k")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
