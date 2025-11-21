@@ -19,6 +19,7 @@ signal hit
 @export var base_laser_damage = 1
 var laser_damage_multiplier := 1.0
 var laser_scene := preload("res://Scenes/Laser Scenes/laser.tscn")
+@export var damage_buff_laser_scene := preload("res://Scenes/Laser Scenes/DamageBuffLaser.tscn")
 
 
 var buff_active = false
@@ -141,7 +142,12 @@ func _process(delta):
 
 func shoot():
 	var location = muzzle.global_position
-	laser_shot.emit(laser_scene, location, self)
+	
+	var scene_to_fire = laser_scene
+	if has_damage_buff:
+		scene_to_fire = damage_buff_laser_scene
+	
+	laser_shot.emit(scene_to_fire, location, self)
 
 func apply_damage_buff(duration):
 	if has_damage_buff:

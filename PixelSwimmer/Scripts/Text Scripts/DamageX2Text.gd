@@ -6,8 +6,8 @@ extends Marker2D
 
 func show_text() -> void:
 	label.text = "DAMAGE X2"   # or whatever you want
-	anim_player.play("popup")  # name of your animation
+	anim_player.play("PopUp")  # name of your animation
 
 func _on_animation_player_animation_finished(anim_name: StringName) -> void:
-	if anim_name == "popup":
+	if anim_name == "PopUp":
 		queue_free()
