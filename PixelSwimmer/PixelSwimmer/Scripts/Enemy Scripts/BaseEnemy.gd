@@ -4,6 +4,7 @@ extends Area2D
 #signals
 signal enemy_killed(points, death_sound, source)
 signal hit
+signal killed_by(source)
 
 #variables
 var is_dead: bool = false
@@ -19,6 +20,7 @@ func _physics_process(delta: float) -> void:
 
 func die(source: Node) -> void:
 	enemy_killed.emit(points, death_sound, source)
+	killed_by.emit(source)
 	queue_free()
 
 func _on_body_entered(body: Node2D) -> void:

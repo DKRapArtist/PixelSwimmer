@@ -70,11 +70,11 @@ func set_score(value):
 	if score >= 2000 and all_enemy_scenes[6] not in enemy_scenes:
 		enemy_scenes.append(all_enemy_scenes[6])
 
-	if score >= 10 and all_buff_scenes[1] not in buff_scenes:
+	if score >= 0 and all_buff_scenes[1] not in buff_scenes:
 		buff_scenes.append(all_buff_scenes[1])
-	if score >= 10 and all_buff_scenes[2] not in buff_scenes:
+	if score >= 0 and all_buff_scenes[2] not in buff_scenes:
 		buff_scenes.append(all_buff_scenes[2])
-	if score >= 10 and all_buff_scenes[3] not in buff_scenes:
+	if score >= 0 and all_buff_scenes[3] not in buff_scenes:
 		buff_scenes.append(all_buff_scenes[3])
 	if score >= 1500 and all_buff_scenes[4] not in buff_scenes:
 		buff_scenes.append(all_buff_scenes[4])
@@ -234,15 +234,23 @@ func _on_enemy_spawn_timer_timeout() -> void:
 
 
 func _on_enemy_killed(points, death_sound, source):
+	# Play death sound if available
 	if death_sound:
 		death_sfx_player.stream = death_sound
 		death_sfx_player.play()
 
-	if is_instance_valid(source) and source is Player:
+	# Award points based on the source of the kill
+	if is_instance_valid(source):
+		if source is Player:
+			score += points  # Player kill: use provided 'points'
+		elif source is BacteriaMinion:
 			score += points
+			# Or just score += points if you want minion kills to give full value
 
+	# Update the high score if necessary
 	if score > high_score:
 		high_score = score
+
 
 func _on_enemy_hit():
 	enemy_hit_sound.play()

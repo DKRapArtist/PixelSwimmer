@@ -28,7 +28,7 @@ func shoot() -> void:
 	var laser: Laser = minion_laser_scene.instantiate()
 	get_tree().current_scene.add_child(laser)
 	laser.global_position = muzzle.global_position
-	laser.original = owner_player
+	laser.original = self
 	laser.direction = Vector2.UP
 
 	if sfx_shoot:
