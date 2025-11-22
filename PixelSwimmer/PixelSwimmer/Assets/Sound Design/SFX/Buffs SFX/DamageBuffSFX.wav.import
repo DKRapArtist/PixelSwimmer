@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b2xttfb2vbyrh"
+path="res://.godot/imported/DamageBuffSFX.wav-8e77234579ff8161a040348e4fb008d9.sample"
+
+[deps]
+
+source_file="res://Assets/Sound Design/SFX/Buffs SFX/DamageBuffSFX.wav"
+dest_files=["res://.godot/imported/DamageBuffSFX.wav-8e77234579ff8161a040348e4fb008d9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

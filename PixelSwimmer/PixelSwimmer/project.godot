@@ -13,6 +13,9 @@ config_version=5
 config/name="Pixel Swimmer"
 run/main_scene="uid://7f0sfjrmit5a"
 config/features=PackedStringArray("4.5", "Mobile")
+boot_splash/bg_color=Color(0.16862746, 0.56078434, 0.84705883, 1)
+boot_splash/image="uid://s15c7uvj2buf"
+config/icon="uid://s15c7uvj2buf"
 
 [audio]
 
@@ -70,3 +73,4 @@ move_down={
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+anti_aliasing/quality/msaa_2d=3

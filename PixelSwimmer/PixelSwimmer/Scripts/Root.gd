@@ -6,7 +6,7 @@ var all_enemy_scenes: Array[PackedScene] = [
 		preload("res://Scenes/Enemy Scenes/EnemySperm.tscn"), 
 		preload("res://Scenes/Enemy Scenes/RedCell.tscn"),          #250
 		preload("res://Scenes/Enemy Scenes/MucusEnemy.tscn"),       #500
-		preload("res://Scenes/Enemy Scenes/exploding_enemy.tscn"),  #750
+		preload("res://Scenes/Enemy Scenes/ExplodingEnemy.tscn"),  #750
 		preload("res://Scenes/Enemy Scenes/WhiteCell.tscn"),       #1000
 		preload("res://Scenes/Enemy Scenes/parasite.tscn"),        #1500
 		preload("res://Scenes/Enemy Scenes/BossMinion.tscn")       #2000
@@ -19,6 +19,10 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/DamageBuff.tscn"),
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
+var levels = [
+	{"whiteCell": 5, "bacteria": 3, "Parasite": 1}
+]
+
 @export var bacteria_minion_scene: PackedScene
 
 #onready variables
@@ -309,3 +313,10 @@ func _spawn_minion() -> void:
 	minion.global_position = minion_spawn.global_position
 	minion.owner_player = player
 	enemy_container.add_child(minion)
+
+# ------------------------------------------------------------
+# LEVELS LOGIC
+# ------------------------------------------------------------
+
+func level_completed():
+	pass

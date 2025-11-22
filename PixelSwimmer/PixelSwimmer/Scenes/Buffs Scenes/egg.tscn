@@ -1,0 +1,119 @@
+[gd_scene load_steps=18 format=3 uid="uid://dtokd0nir4tk3"]
+
+[ext_resource type="Script" uid="uid://dyjytd2surkjr" path="res://Scripts/Buffs Scripts/Egg.gd" id="1_2efsv"]
+[ext_resource type="PackedScene" uid="uid://cb85idp0ab5c4" path="res://Scenes/Text Scenes/LevelCompleted.tscn" id="2_0sgvx"]
+[ext_resource type="Texture2D" uid="uid://cn81fyagcde6a" path="res://Assets/Sprites/Buff Sprites/EggSprite.png" id="2_rnxh7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0sgvx"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(0, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypsys"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(1138, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqyw7"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(2276, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fa8um"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(3414, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojwfl"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(4552, 0, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4ynb"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(0, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_piltk"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(1138, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sbmp"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(2276, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w1a8t"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(3414, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dul6r"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(4552, 640, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ek3na"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(0, 1280, 1138, 640)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_62swm"]
+atlas = ExtResource("2_rnxh7")
+region = Rect2(1138, 1280, 1138, 640)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rnxh7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0sgvx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypsys")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqyw7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fa8um")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojwfl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4ynb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_piltk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4sbmp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w1a8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dul6r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ek3na")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_62swm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
+radius = 398.0201
+
+[node name="Egg" type="Area2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_2efsv")
+levelcompleted_text_scene = ExtResource("2_0sgvx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rnxh7")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_afpow")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, -48)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
