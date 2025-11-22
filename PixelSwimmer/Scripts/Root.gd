@@ -20,16 +20,16 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
 var levels = [
-	{"EnemySperm":1, "RedCell": 1, "Egg": 1}, #Level 1
-	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5}, #Level 2
-	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "ExplodingEnemy": 5}, #Level 3
-	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 7}, #Level 4
-	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5}, #Level 5
-	{"EnemySperm":5, "MucusEnemy": 10, "ExplodingEnemy": 10, "WhiteCell": 10}, #Level 6
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Parasite": 5}, #Level 7
-	{"EnemySperm":5, "MucusEnemy": 3, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 2}, #Level 8
-	{"EnemySperm":5, "MucusEnemy": 1, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 5}, #Level 9
-	{"Boss": 1} #BossLevel
+	{"EnemySperm":15, "RedCell": 15, "Egg": 1}, #Level 1
+	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "Egg": 1}, #Level 2
+	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "ExplodingEnemy": 5, "Egg": 1}, #Level 3
+	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 7, "Egg": 1}, #Level 4
+	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Egg": 1}, #Level 5
+	{"EnemySperm":5, "MucusEnemy": 10, "ExplodingEnemy": 10, "WhiteCell": 10, "Egg": 1}, #Level 6
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Parasite": 5, "Egg": 1}, #Level 7
+	{"EnemySperm":5, "MucusEnemy": 3, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 2, "Egg": 1}, #Level 8
+	{"EnemySperm":5, "MucusEnemy": 1, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 5, "Egg": 1}, #Level 9
+	{"Boss": 1, "Egg": 1} #BossLevel
 ]
 var enemy_spawn_queue = []
 var enemy_queue_index = 0
@@ -51,6 +51,7 @@ var enemy_queue_index = 0
 @onready var player_spawn := $PlayerSpawn
 @onready var minion_spawn := $MinionSpawnPoint
 @onready var pb = $Parallax2D
+@onready var level_completed_screen: Node2D = $UILayer/LevelCompletedScreen
 
 # SFX
 @onready var player_shooting_sound = $SFX/PlayerShooting
@@ -99,8 +100,8 @@ var high_score
 
 #READY FUNCTION #run this code when the scene starts and everything is in place
 func _ready() -> void:
-	#Starts current game mode
 	start_game(GameSession.mode, GameSession.current_level)
+	level_completed_screen.next_level_pressed.connect(_on_next_level_pressed)
 	
 	enemy_scenes.append(all_enemy_scenes[0])
 	buff_scenes.append(all_buff_scenes[0])
@@ -333,6 +334,7 @@ func _spawn_minion() -> void:
 # LEVELS LOGIC
 # ------------------------------------------------------------
 func spawn_level(level_index):
+	print("Spawning level:", level_index)
 	enemy_spawn_queue.clear()
 	var current_level = levels[level_index]
 	var last_enemy_type = "Egg"
@@ -385,3 +387,16 @@ func start_game(mode, current_level):
 
 func show_level_complete_screen():
 	$UILayer/LevelCompletedScreen.visible = true
+
+func _on_next_level_pressed() -> void:
+	# Move to the next level index
+	GameSession.current_level += 1
+
+	# Optional: check bounds so you don't go past the last level
+	if GameSession.current_level >= levels.size():
+		# e.g. go back to main menu or show “You finished the game” (change later to chapter complete)
+		get_tree().change_scene_to_file("res://Scenes/Menu Scenes/main_menu.tscn")
+		return
+
+	# Reload the game scene so _ready runs again and uses the new current_level
+	get_tree().change_scene_to_file("res://Scenes/Root.tscn")

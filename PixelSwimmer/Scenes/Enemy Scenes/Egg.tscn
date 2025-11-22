@@ -97,7 +97,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
-radius = 398.0201
+radius = 242.03305
 
 [node name="Egg" type="Area2D"]
 collision_layer = 2
