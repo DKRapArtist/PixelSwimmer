@@ -22,6 +22,7 @@ var all_buff_scenes: Array[PackedScene] = [
 var levels = [
 	{"whiteCell": 5, "bacteria": 3, "Parasite": 1}
 ]
+var levelcompleted: bool = false
 
 @export var bacteria_minion_scene: PackedScene
 
@@ -319,4 +320,5 @@ func _spawn_minion() -> void:
 # ------------------------------------------------------------
 
 func level_completed():
-	pass
+	if levelcompleted:
+		levelcompleted = true

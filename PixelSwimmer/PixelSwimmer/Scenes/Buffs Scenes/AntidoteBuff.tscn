@@ -265,8 +265,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_afpow"]
-radius = 27.018513
+[sub_resource type="CircleShape2D" id="CircleShape2D_7gbtp"]
+radius = 23.853722
 
 [node name="AntidoteBuff" type="Area2D"]
 collision_layer = 2
@@ -282,7 +282,7 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -2)
-shape = SubResource("CircleShape2D_afpow")
+shape = SubResource("CircleShape2D_7gbtp")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(0, -48)

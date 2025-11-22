@@ -14,7 +14,7 @@ func _on_survival_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Root.tscn")
 
 func _on_story_mode_pressed() -> void:
-	get_tree().change_scene_to_file("res://Scenes/Menu Scenes/Chapter1.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Menu Scenes/ChaptersScreen.tscn")
 
 func _on_options_pressed():
 	get_tree().change_scene_to_file("res://Scenes/Menu Scenes/options.tscn")
