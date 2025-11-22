@@ -11,6 +11,8 @@ func _ready():
 
 #Main Menu Button Connections
 func _on_survival_pressed() -> void:
+	GameSession.mode = "survival"
+	GameSession.current_level = 0
 	get_tree().change_scene_to_file("res://Scenes/Root.tscn")
 
 func _on_story_mode_pressed() -> void:

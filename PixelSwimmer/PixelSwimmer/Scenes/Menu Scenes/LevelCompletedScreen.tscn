@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://k62jq2k7i63l"]
+
+[ext_resource type="Script" uid="uid://yi4se7vjeew1" path="res://Scripts/Menu Scripts/LevelCompletedScreen.gd" id="1_wrsfr"]
+[ext_resource type="Texture2D" uid="uid://c6dlhncfq6bh2" path="res://Assets/Level Button Assets/Level Completed Screen.png" id="2_wrsfr"]
+[ext_resource type="Texture2D" uid="uid://c0tsuqrstknaa" path="res://Assets/Level Button Assets/Next Level Button (not hovered).png" id="3_3mwf0"]
+[ext_resource type="Texture2D" uid="uid://d2nvtv6y7vedt" path="res://Assets/Level Button Assets/Next Level Button (hovered).png" id="4_hig6d"]
+[ext_resource type="Texture2D" uid="uid://bgubsp0bxq0sc" path="res://Assets/Menu Buttons/Main Menu BUTTON (not hovered).png" id="4_wrsfr"]
+[ext_resource type="Texture2D" uid="uid://b1pjvq5dsh12y" path="res://Assets/Menu Buttons/Main Menu BUTTON (hovered).png" id="5_upi55"]
+
+[node name="LevelCompletedScreen" type="Node2D"]
+script = ExtResource("1_wrsfr")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelCompleted" type="Sprite2D" parent="Background"]
+position = Vector2(270, 480)
+texture = ExtResource("2_wrsfr")
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NextLevel" type="TextureButton" parent="Buttons"]
+layout_mode = 0
+offset_left = 121.0
+offset_top = 436.0
+offset_right = 421.0
+offset_bottom = 536.0
+texture_normal = ExtResource("3_3mwf0")
+texture_hover = ExtResource("4_hig6d")
+
+[node name="MainMenu" type="TextureButton" parent="Buttons"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 543.0
+offset_right = 422.0
+offset_bottom = 643.0
+texture_normal = ExtResource("4_wrsfr")
+texture_hover = ExtResource("5_upi55")
+
+[connection signal="pressed" from="Buttons/NextLevel" to="." method="_on_next_level_pressed"]
+[connection signal="pressed" from="Buttons/MainMenu" to="." method="_on_main_menu_pressed"]

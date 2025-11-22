@@ -7,6 +7,7 @@ extends CharacterBody2D
 signal laser_shot(laser_scene, location, shooter)
 signal killed
 signal hit
+signal levelcompleted
 
 # ───────────────────────────────────────────────
 #Variables
@@ -41,6 +42,7 @@ var has_shield: bool = false
 var shield_time_left: float = 0.0
 var has_damage_buff: bool = false
 var damage_time_left: float = 0.0
+var level_completed: bool = false
 
 # ───────────────────────────────────────────────
 # Node References
@@ -230,6 +232,10 @@ func apply_shield(duration):
 	has_shield = true
 	shield_time_left = duration
 	update_heart_display()
+	
+func completed_level():
+	level_completed = true
+	emit_signal("levelcompleted")
 # ───────────────────────────────────────────────
 # COLLISION WITH ENEMY
 # ───────────────────────────────────────────────

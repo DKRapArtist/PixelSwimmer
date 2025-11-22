@@ -6,9 +6,9 @@ var all_enemy_scenes: Array[PackedScene] = [
 		preload("res://Scenes/Enemy Scenes/EnemySperm.tscn"), 
 		preload("res://Scenes/Enemy Scenes/RedCell.tscn"),          #250
 		preload("res://Scenes/Enemy Scenes/MucusEnemy.tscn"),       #500
-		preload("res://Scenes/Enemy Scenes/ExplodingEnemy.tscn"),  #750
+		preload("res://Scenes/Enemy Scenes/ExplodingEnemy.tscn"),   #750
 		preload("res://Scenes/Enemy Scenes/WhiteCell.tscn"),       #1000
-		preload("res://Scenes/Enemy Scenes/parasite.tscn"),        #1500
+		preload("res://Scenes/Enemy Scenes/Parasite.tscn"),        #1500
 		preload("res://Scenes/Enemy Scenes/BossMinion.tscn")       #2000
 ]
 var buff_scenes: Array[PackedScene] = []
@@ -20,9 +20,19 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
 var levels = [
-	{"whiteCell": 5, "bacteria": 3, "Parasite": 1}
+	{"EnemySperm":1, "RedCell": 1, "Egg": 1}, #Level 1
+	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5}, #Level 2
+	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "ExplodingEnemy": 5}, #Level 3
+	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 7}, #Level 4
+	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5}, #Level 5
+	{"EnemySperm":5, "MucusEnemy": 10, "ExplodingEnemy": 10, "WhiteCell": 10}, #Level 6
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Parasite": 5}, #Level 7
+	{"EnemySperm":5, "MucusEnemy": 3, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 2}, #Level 8
+	{"EnemySperm":5, "MucusEnemy": 1, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 5}, #Level 9
+	{"Boss": 1} #BossLevel
 ]
-var levelcompleted: bool = false
+var enemy_spawn_queue = []
+var enemy_queue_index = 0
 
 @export var bacteria_minion_scene: PackedScene
 
@@ -36,6 +46,7 @@ var levelcompleted: bool = false
 @onready var enemy_container = $EnemyContainer
 @onready var buff_container = $BuffContainer
 @onready var timer = $EnemySpawnTimer
+@onready var story_enemy_spawn_timer: Timer = $StoryEnemySpawnTimer
 @onready var buff_timer = $BuffSpawnTimer
 @onready var player_spawn := $PlayerSpawn
 @onready var minion_spawn := $MinionSpawnPoint
@@ -88,6 +99,9 @@ var high_score
 
 #READY FUNCTION #run this code when the scene starts and everything is in place
 func _ready() -> void:
+	#Starts current game mode
+	start_game(GameSession.mode, GameSession.current_level)
+	
 	enemy_scenes.append(all_enemy_scenes[0])
 	buff_scenes.append(all_buff_scenes[0])
 	
@@ -318,7 +332,56 @@ func _spawn_minion() -> void:
 # ------------------------------------------------------------
 # LEVELS LOGIC
 # ------------------------------------------------------------
+func spawn_level(level_index):
+	enemy_spawn_queue.clear()
+	var current_level = levels[level_index]
+	var last_enemy_type = "Egg"
+	
+	var shuffled_enemies = []
+	var last_enemies = 0
+	
+	for enemy_type in current_level:
+		if enemy_type == last_enemy_type:
+			last_enemies = current_level[enemy_type]
+		else:
+			for i in range(current_level[enemy_type]):
+				shuffled_enemies.append(enemy_type)
+				
+	shuffled_enemies.shuffle()
+	enemy_spawn_queue = shuffled_enemies
+	
+	for i in range(last_enemies):
+			enemy_spawn_queue.append(last_enemy_type)
+			enemy_queue_index = 0
+			story_enemy_spawn_timer.start()
 
-func level_completed():
-	if levelcompleted:
-		levelcompleted = true
+func _on_story_enemy_spawn_timer_timeout():
+	if enemy_queue_index < enemy_spawn_queue.size():
+		var enemy_type = enemy_spawn_queue[enemy_queue_index]
+		var enemy_scene = load("res://Scenes/Enemy Scenes/%s.tscn" % enemy_type)
+		var enemy_instance = enemy_scene.instantiate()
+
+		if enemy_type == "Egg":
+			enemy_instance.global_position = Vector2(273, -50) # Set your desired coordinate here
+		else:
+			enemy_instance.global_position = Vector2(randf_range(50, 500), -50)
+
+		enemy_container.add_child(enemy_instance)
+		enemy_queue_index += 1
+	else:
+		story_enemy_spawn_timer.stop()
+
+func start_game(mode, current_level):
+	# Always disconnect to prevent multiple connections (safe even if not connected)
+	timer.timeout.disconnect(_on_enemy_spawn_timer_timeout)
+	
+	if mode == "survival":
+		timer.timeout.connect(_on_enemy_spawn_timer_timeout)
+		timer.start()
+	elif mode == "story":
+		timer.stop()
+		# No random spawn in story mode
+		spawn_level(current_level)
+
+func show_level_complete_screen():
+	$UILayer/LevelCompletedScreen.visible = true

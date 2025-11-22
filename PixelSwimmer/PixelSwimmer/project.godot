@@ -25,6 +25,7 @@ buses/default_bus_layout="uid://cq5ie51wpkas1"
 
 SettingsManager="*res://Scripts/Global Scripts/settings_manager.gd"
 MenuMusic="*res://Scripts/Global Scripts/menu_music.gd"
+GameSession="*res://Scripts/Global Scripts/GameSession.gd"
 
 [display]
 

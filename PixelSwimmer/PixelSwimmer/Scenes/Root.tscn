@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=17 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/Root.gd" id="1_difym"]
 [ext_resource type="PackedScene" uid="uid://cxqykb82x7b5d" path="res://Scenes/Player.tscn" id="8_m1xq0"]
@@ -8,6 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://d0c6trblj1p3t" path="res://Assets/Sound Design/SFX/DamageSFX/EnemyHit SFX.wav" id="12_asw58"]
 [ext_resource type="PackedScene" uid="uid://vrlj2y515uph" path="res://Scenes/Buffs Scenes/BacteriaMinion.tscn" id="13_ql2nr"]
 [ext_resource type="AudioStream" uid="uid://clwvwh7clcc0p" path="res://Assets/Sound Design/SFX/Death SFX/Pixel Swimmer Player Death Sound SFX.wav" id="13_rcb2t"]
+[ext_resource type="PackedScene" uid="uid://k62jq2k7i63l" path="res://Scenes/Menu Scenes/LevelCompletedScreen.tscn" id="14_75oan"]
 [ext_resource type="PackedScene" uid="uid://bnjwk32m2suwc" path="res://Scenes/UI Scenes/hud.tscn" id="15_ijev8"]
 [ext_resource type="Texture2D" uid="uid://bgvie58h567jd" path="res://Assets/Menu Buttons/Pause BUTTON (not Hovered).png" id="16_path1"]
 [ext_resource type="Texture2D" uid="uid://dgwpep3vmh6sf" path="res://Assets/Menu Buttons/Pause BUTTON (Hovered).png" id="17_okppc"]
@@ -45,6 +46,9 @@ bacteria_minion_scene = ExtResource("13_ql2nr")
 [node name="EnemySpawnTimer" type="Timer" parent="."]
 wait_time = 2.0
 autostart = true
+
+[node name="StoryEnemySpawnTimer" type="Timer" parent="."]
+wait_time = 2.0
 
 [node name="BuffSpawnTimer" type="Timer" parent="."]
 wait_time = 20.0
@@ -122,6 +126,9 @@ visible = false
 [node name="GameOverScreen" parent="UILayer" instance=ExtResource("19_7j4pg")]
 visible = false
 
+[node name="LevelCompletedScreen" parent="UILayer" instance=ExtResource("14_75oan")]
+visible = false
+
 [node name="BubbleParticles" type="GPUParticles2D" parent="."]
 position = Vector2(270, -50)
 amount = 3
@@ -134,5 +141,6 @@ amount = 20
 process_material = SubResource("ParticleProcessMaterial_ldgsr")
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="_on_enemy_spawn_timer_timeout"]
+[connection signal="timeout" from="StoryEnemySpawnTimer" to="." method="_on_story_enemy_spawn_timer_timeout"]
 [connection signal="timeout" from="BuffSpawnTimer" to="." method="_on_buff_spawn_timer_timeout"]
 [connection signal="pressed" from="UILayer/HUD/PauseButton" to="." method="_on_pause_button_pressed"]
