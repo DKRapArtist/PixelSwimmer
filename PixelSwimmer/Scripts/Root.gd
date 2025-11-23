@@ -1,6 +1,36 @@
 extends Node2D
 
 #export variables
+@export var bacteria_minion_scene: PackedScene
+@export var boss_minion_scene: PackedScene
+
+#onready variables
+@onready var player := $Player
+@onready var hud := $UILayer/HUD
+@onready var gos := $UILayer/GameOverScreen
+@onready var pause_menu := $UILayer/PauseMenu
+@onready var options_menu := $UILayer/PauseMenu/OptionsMenu
+@onready var laser_container = $LaserContainer
+@onready var enemy_container = $EnemyContainer
+@onready var buff_container = $BuffContainer
+@onready var timer = $EnemySpawnTimer
+@onready var story_enemy_spawn_timer: Timer = $StoryEnemySpawnTimer
+@onready var buff_timer = $BuffSpawnTimer
+@onready var player_spawn := $PlayerSpawn
+@onready var minion_spawn := $MinionSpawnPoint
+@onready var pb = $Parallax2D
+@onready var level_completed_screen: Node2D = $UILayer/LevelCompletedScreen
+
+# SFX
+@onready var player_shooting_sound = $SFX/PlayerShooting
+@onready var player_hit_sound = $SFX/PlayerHit
+@onready var enemy_hit_sound = $SFX/EnemyHit
+@onready var boss_hit_sound = $SFX/BossHit
+@onready var player_death_sound = $SFX/PlayerDeath
+@onready var buff_sfx_player: AudioStreamPlayer = $SFX/BuffSfxPlayer
+@onready var death_sfx_player: AudioStreamPlayer = $SFX/DeathSfxPlayer
+
+#variables
 var enemy_scenes: Array[PackedScene] = []
 var all_enemy_scenes: Array[PackedScene] = [
 		preload("res://Scenes/Enemy Scenes/EnemySperm.tscn"), 
@@ -29,39 +59,10 @@ var levels = [
 	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Parasite": 5, "Egg": 1}, #Level 7
 	{"EnemySperm":5, "MucusEnemy": 3, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 2, "Egg": 1}, #Level 8
 	{"EnemySperm":5, "MucusEnemy": 1, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 5, "Egg": 1}, #Level 9
-	{"Boss": 1, "Egg": 1} #BossLevel
+	{"Boss": 1,"Egg": 1} #BossLevel
 ]
 var enemy_spawn_queue = []
 var enemy_queue_index = 0
-
-@export var bacteria_minion_scene: PackedScene
-
-#onready variables
-@onready var player := $Player
-@onready var hud := $UILayer/HUD
-@onready var gos := $UILayer/GameOverScreen
-@onready var pause_menu := $UILayer/PauseMenu
-@onready var options_menu := $UILayer/PauseMenu/OptionsMenu
-@onready var laser_container = $LaserContainer
-@onready var enemy_container = $EnemyContainer
-@onready var buff_container = $BuffContainer
-@onready var timer = $EnemySpawnTimer
-@onready var story_enemy_spawn_timer: Timer = $StoryEnemySpawnTimer
-@onready var buff_timer = $BuffSpawnTimer
-@onready var player_spawn := $PlayerSpawn
-@onready var minion_spawn := $MinionSpawnPoint
-@onready var pb = $Parallax2D
-@onready var level_completed_screen: Node2D = $UILayer/LevelCompletedScreen
-
-# SFX
-@onready var player_shooting_sound = $SFX/PlayerShooting
-@onready var player_hit_sound = $SFX/PlayerHit
-@onready var enemy_hit_sound = $SFX/EnemyHit
-@onready var player_death_sound = $SFX/PlayerDeath
-@onready var buff_sfx_player: AudioStreamPlayer = $SFX/BuffSfxPlayer
-@onready var death_sfx_player: AudioStreamPlayer = $SFX/DeathSfxPlayer
-
-#variables
 var minion: Node = null  # track current minion instance
 const GAME_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer Game Music.wav")
 const GAME_OVER_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer Game Over Music.wav")
@@ -69,7 +70,16 @@ const GAME_OVER_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer 
 #player score
 var score := 0:
 	set = set_score
-	
+var high_score
+#background movment speed
+var scroll_speed = 300
+#making buffs stay away from enemy
+const BUFF_AVOID_RADIUS := 32.0
+var boss_dead: bool = false
+var is_boss_level: bool = false
+
+#FUNCTIONS
+
 func set_score(value):
 	score = value
 	hud.score = score
@@ -95,8 +105,6 @@ func set_score(value):
 		buff_scenes.append(all_buff_scenes[3])
 	if score >= 1500 and all_buff_scenes[4] not in buff_scenes: #antidote
 		buff_scenes.append(all_buff_scenes[4])
-
-var high_score
 
 #READY FUNCTION #run this code when the scene starts and everything is in place
 func _ready() -> void:
@@ -136,12 +144,6 @@ func _ready() -> void:
 func save_game():
 	var save_file = FileAccess.open("user://save.data", FileAccess.WRITE)
 	save_file.store_32(high_score)
-
-#background movment speed
-var scroll_speed = 300
-
-#making buffs stay away from enemy
-const BUFF_AVOID_RADIUS := 32.0
 
 func is_position_over_buff(pos: Vector2) -> bool:
 	for buff in buff_container.get_children():
@@ -213,8 +215,6 @@ func _process(delta: float) -> void:
 	if pb.scroll_offset.y >= 960:
 		pb.scroll_offset.y = 0
 
-
-	
 # ------------------------------------------------------------
 # ENEMY & LASER LOGIC
 # ------------------------------------------------------------
@@ -226,7 +226,6 @@ func _on_player_laser_shot(laser_scene, location, shooter):
 	laser.damage = shooter.base_laser_damage * (2 if shooter.has_damage_buff else 1)
 	laser_container.add_child(laser)
 	player_shooting_sound.play()
-
 
 func _on_enemy_spawn_timer_timeout() -> void:
 	var spawn_pos: Vector2
@@ -252,7 +251,6 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	e.hit.connect(_on_enemy_hit)
 	enemy_container.add_child(e)
 
-
 func _on_enemy_killed(points, death_sound, source):
 	# Play death sound if available
 	if death_sound:
@@ -271,9 +269,13 @@ func _on_enemy_killed(points, death_sound, source):
 	if score > high_score:
 		high_score = score
 
-
 func _on_enemy_hit():
 	enemy_hit_sound.play()
+
+func _on_boss_hit():
+		var semitones = randf_range(-8.0, -6.0)
+		boss_hit_sound.pitch_scale = pow(2.0, semitones / 12.0)
+		boss_hit_sound.play()
 
 func _on_player_killed():
 	MenuMusic.play_game_over(GAME_OVER_MUSIC)
@@ -291,7 +293,6 @@ func _on_player_killed():
 
 	await get_tree().create_timer(0.5).timeout
 	gos.visible = true
-
 
 #what happens when you pick up a buff (plays sound)
 func _on_buff_picked(buff_sound):
@@ -364,14 +365,51 @@ func _on_story_enemy_spawn_timer_timeout():
 		var enemy_instance = enemy_scene.instantiate()
 
 		if enemy_type == "Egg":
-			enemy_instance.global_position = Vector2(273, -50) # Set your desired coordinate here
+			if is_boss_level and not boss_dead:
+				return
+			enemy_instance.global_position = Vector2(273, -50)
+
+		elif enemy_type == "Boss":
+			enemy_instance.global_position = Vector2(273, 300)
+			enemy_instance.boss_died.connect(_on_boss_died)
+			# connect boss-specific signal here, inside the Boss branch
+			if enemy_instance.has_signal("spawn_minions"):
+				enemy_instance.spawn_minions.connect(_on_boss_spawn_minions.bind(enemy_instance))
+
 		else:
 			enemy_instance.global_position = Vector2(randf_range(50, 500), -50)
+
+		# Common connections for all enemies
+		if enemy_instance.has_signal("enemy_killed"):
+			enemy_instance.enemy_killed.connect(_on_enemy_killed)
+
+		if enemy_instance.has_signal("hit"):
+			if enemy_type == "Boss":
+				enemy_instance.hit.connect(_on_boss_hit)
+			else:
+				enemy_instance.hit.connect(_on_enemy_hit)
 
 		enemy_container.add_child(enemy_instance)
 		enemy_queue_index += 1
 	else:
 		story_enemy_spawn_timer.stop()
+
+func _on_boss_spawn_minions(count: int, boss: Boss) -> void:
+	for i in range(count):
+		var boss_minion := boss_minion_scene.instantiate()
+		boss_minion.global_position = boss.global_position  # or around the boss
+		enemy_container.add_child(boss_minion)
+
+		# Connect minion death back to this boss
+		if boss_minion.has_signal("enemy_killed"):
+			boss_minion.enemy_killed.connect(_on_boss_minion_killed.bind(boss))
+
+func _on_boss_minion_killed(points, death_sound, source, boss: Boss) -> void:
+	# still let your normal kill logic run if you want:
+	_on_enemy_killed(points, death_sound, source)
+
+	if is_instance_valid(boss):
+		boss.on_minion_died()
 
 func start_game(mode, current_level):
 	# Always disconnect to prevent multiple connections (safe even if not connected)
@@ -381,12 +419,15 @@ func start_game(mode, current_level):
 		timer.timeout.connect(_on_enemy_spawn_timer_timeout)
 		timer.start()
 	elif mode == "story":
+		$UILayer/HUD.hide_score()
 		timer.stop()
-		# No random spawn in story mode
+		is_boss_level = levels[current_level].has("Boss")
+		boss_dead = not is_boss_level
 		spawn_level(current_level)
 
 func show_level_complete_screen():
 	$UILayer/LevelCompletedScreen.visible = true
+	$UILayer/HUD/PauseButton.visible = false
 
 func _on_next_level_pressed() -> void:
 	# Move to the next level index
@@ -400,3 +441,6 @@ func _on_next_level_pressed() -> void:
 
 	# Reload the game scene so _ready runs again and uses the new current_level
 	get_tree().change_scene_to_file("res://Scenes/Root.tscn")
+
+func _on_boss_died() -> void:
+	boss_dead = true

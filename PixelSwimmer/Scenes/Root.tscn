@@ -1,6 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=19 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/Root.gd" id="1_difym"]
+[ext_resource type="PackedScene" uid="uid://djwlm556wwhom" path="res://Scenes/Enemy Scenes/BossMinion.tscn" id="3_yiytj"]
+[ext_resource type="AudioStream" uid="uid://cqpksp7a7v4qp" path="res://Assets/Sound Design/SFX/DamageSFX/BossHitSFX.wav" id="8_fauc5"]
 [ext_resource type="PackedScene" uid="uid://cxqykb82x7b5d" path="res://Scenes/Player.tscn" id="8_m1xq0"]
 [ext_resource type="Texture2D" uid="uid://4l08p5pi7edm" path="res://Assets/Backgrounds/CERVIX SPERM GAME BACKGROUND V3.png" id="9_jcrtk"]
 [ext_resource type="AudioStream" uid="uid://d1ef886jlby15" path="res://Assets/Sound Design/SFX/PlayerShootingSFX.wav" id="10_8btxg"]
@@ -34,6 +36,7 @@ anim_speed_min = -1000.0
 [node name="Root" type="Node2D"]
 script = ExtResource("1_difym")
 bacteria_minion_scene = ExtResource("13_ql2nr")
+boss_minion_scene = ExtResource("3_yiytj")
 
 [node name="Player" parent="." instance=ExtResource("8_m1xq0")]
 
@@ -85,6 +88,10 @@ bus = &"SfxBus"
 
 [node name="EnemyHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("12_asw58")
+bus = &"SfxBus"
+
+[node name="BossHit" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource("8_fauc5")
 bus = &"SfxBus"
 
 [node name="PlayerDeath" type="AudioStreamPlayer" parent="SFX"]

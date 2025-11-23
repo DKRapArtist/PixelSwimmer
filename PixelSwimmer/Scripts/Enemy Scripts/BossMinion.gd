@@ -5,6 +5,7 @@ extends Enemy
 @export var fire_interval := 1.5
 @onready var fire_timer = $FireTimer
 
+
 var player: Node2D
 
 func _ready() -> void:
@@ -18,7 +19,7 @@ func _on_fire_timer_timeout() -> void:
 	if player == null or not is_instance_valid(player):
 		return
 
-	var laser = laser_scene.instantiate()
+	var laser = laser_scene.instantiate() 
 
 	var dir := (player.global_position - global_position).normalized()
 
