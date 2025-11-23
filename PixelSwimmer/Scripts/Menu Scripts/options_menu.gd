@@ -11,7 +11,7 @@ func _ready():
 	update_settings_ui()
 #plays menu music
 	if origin == "main_menu":
-		MenuMusic.play_menu_music(MENU_MUSIC)
+		MusicManager.play_menu_music(MENU_MUSIC)
 
 func open_from_pause():
 	origin = "pause_menu"

@@ -8,6 +8,7 @@ signal shield_changed(active: bool)
 @export var laser_scene: PackedScene
 @export var fire_interval := 1.5
 @onready var fire_timer = $FireTimer
+@onready var shield_particles = $ShieldCanvas/ShieldParticles
 var player: Node2D
 var max_hp = 200
 var shield_active = false
@@ -17,11 +18,10 @@ var pending_minions = 0
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
-
-	# Timer already connected in editor (NO extra connect)
 	fire_timer.wait_time = fire_interval
 	fire_timer.start()
-
+	shield_particles.visible = false  # start hidden
+	
 func _on_fire_timer_timeout() -> void:
 	if player == null or not is_instance_valid(player):
 		return
@@ -66,12 +66,12 @@ func _check_phase_trigger() -> void:
 
 func _start_phase() -> void:
 	shield_active = true
+	shield_particles.visible = true
 	shield_changed.emit(true)
 	
 	var minion_count := 3  # or vary by phase / threshold if you want
 	pending_minions = minion_count
-	spawn_minions.emit(minion_count)  # Root will actually instantiate them
-
+	spawn_minions.emit(minion_count)
 	next_phase_index += 1
 
 func on_minion_died() -> void:
@@ -80,16 +80,8 @@ func on_minion_died() -> void:
 
 	if pending_minions <= 0 and shield_active:
 		shield_active = false
+		shield_particles.visible = false
 		shield_changed.emit(false)
 
-
-
-
-
-
-
-
-
-#eliminates movement
 func _physics_process(_delta: float) -> void:
 	pass

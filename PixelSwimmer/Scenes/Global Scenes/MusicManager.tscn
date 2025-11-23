@@ -1,0 +1,20 @@
+[gd_scene load_steps=9 format=3 uid="uid://cw48dcxhmyqpa"]
+
+[ext_resource type="Script" uid="uid://dfj75bmuivk2y" path="res://Scripts/Global Scripts/MusicManager.gd" id="1_i7okt"]
+[ext_resource type="AudioStream" uid="uid://bbo5sktnx2wxn" path="res://Assets/Sound Design/Music/Pixel Swimmer Menu Music.wav" id="2_0yp4i"]
+[ext_resource type="AudioStream" uid="uid://dbn6kgx7ow1rc" path="res://Assets/Sound Design/Music/StoryModeMusic.wav" id="3_1erb6"]
+[ext_resource type="AudioStream" uid="uid://bi75e7vopp14n" path="res://Assets/Sound Design/Music/Pixel Swimmer Boss Theme.wav" id="4_r63o7"]
+[ext_resource type="AudioStream" uid="uid://bm4t57a6rg34e" path="res://Assets/Sound Design/Music/Pixel Swimmer Game Music.wav" id="5_0yp4i"]
+[ext_resource type="AudioStream" uid="uid://uuhyx4f0m3ue" path="res://Assets/Sound Design/SFX/MenuSFX/LevelFailedSFX.wav" id="6_utp2x"]
+[ext_resource type="AudioStream" uid="uid://btixdfxwlpipp" path="res://Assets/Sound Design/SFX/MenuSFX/LevelCompleteSFX.wav" id="7_b2p7s"]
+[ext_resource type="AudioStream" uid="uid://duniy6w6gwclv" path="res://Assets/Sound Design/Music/Pixel Swimmer Game Over Music.wav" id="8_jqf4f"]
+
+[node name="MusicManager" type="Node2D"]
+script = ExtResource("1_i7okt")
+menu_track = ExtResource("2_0yp4i")
+story_track = ExtResource("3_1erb6")
+boss_track = ExtResource("4_r63o7")
+survival_track = ExtResource("5_0yp4i")
+level_failed_track = ExtResource("6_utp2x")
+level_completed_track = ExtResource("7_b2p7s")
+game_over_track = ExtResource("8_jqf4f")

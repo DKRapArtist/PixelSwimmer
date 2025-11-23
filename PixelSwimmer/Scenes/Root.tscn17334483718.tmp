@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=19 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/Root.gd" id="1_difym"]
 [ext_resource type="PackedScene" uid="uid://djwlm556wwhom" path="res://Scenes/Enemy Scenes/BossMinion.tscn" id="3_yiytj"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://k62jq2k7i63l" path="res://Scenes/Menu Scenes/LevelCompletedScreen.tscn" id="14_75oan"]
 [ext_resource type="PackedScene" uid="uid://bnjwk32m2suwc" path="res://Scenes/UI Scenes/hud.tscn" id="15_ijev8"]
 [ext_resource type="Texture2D" uid="uid://bgvie58h567jd" path="res://Assets/Menu Buttons/Pause BUTTON (not Hovered).png" id="16_path1"]
-[ext_resource type="PackedScene" uid="uid://b42o5vtp8dpl2" path="res://Scenes/Menu Scenes/LevelFailedScreen.tscn" id="17_626no"]
 [ext_resource type="Texture2D" uid="uid://dgwpep3vmh6sf" path="res://Assets/Menu Buttons/Pause BUTTON (Hovered).png" id="17_okppc"]
 [ext_resource type="PackedScene" uid="uid://ctmnc8vem7jt0" path="res://Scenes/Menu Scenes/pause_menu.tscn" id="18_0dy5o"]
 [ext_resource type="PackedScene" uid="uid://dcen0c2824kuh" path="res://Scenes/Menu Scenes/game_over_screen.tscn" id="19_7j4pg"]
@@ -93,7 +92,6 @@ bus = &"SfxBus"
 
 [node name="BossHit" type="AudioStreamPlayer" parent="SFX"]
 stream = ExtResource("8_fauc5")
-volume_db = -10.0
 bus = &"SfxBus"
 
 [node name="PlayerDeath" type="AudioStreamPlayer" parent="SFX"]
@@ -136,9 +134,6 @@ visible = false
 visible = false
 
 [node name="LevelCompletedScreen" parent="UILayer" instance=ExtResource("14_75oan")]
-visible = false
-
-[node name="LevelFailedScreen" parent="UILayer" instance=ExtResource("17_626no")]
 visible = false
 
 [node name="BubbleParticles" type="GPUParticles2D" parent="."]

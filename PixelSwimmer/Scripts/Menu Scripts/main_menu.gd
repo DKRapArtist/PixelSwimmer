@@ -1,13 +1,13 @@
 extends Node2D
 
 #variables
-const MENU_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer Menu Music.wav")
+
 
 func _ready():
+	MusicManager.play_menu_music()
 	get_tree().paused = false  # ensure menu works normally
 	SettingsManager.load_settings()
 	#loads menu music
-	MenuMusic.play_menu_music(MENU_MUSIC)
 
 #Main Menu Button Connections
 func _on_survival_pressed() -> void:

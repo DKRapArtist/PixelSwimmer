@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://b42o5vtp8dpl2"]
+
+[ext_resource type="Script" uid="uid://ck00nam5x5kb0" path="res://Scripts/Menu Scripts/LevelFailedScreen.gd" id="1_23aga"]
+[ext_resource type="Texture2D" uid="uid://8oo12lck5e82" path="res://Assets/Level Button Assets/Level Failed Screen.png" id="1_fwldl"]
+[ext_resource type="Texture2D" uid="uid://dkhuptp7tvi6j" path="res://Assets/Menu Buttons/Try Again BUTTON (not hovered).png" id="2_23aga"]
+[ext_resource type="Texture2D" uid="uid://1gplfkt64hqq" path="res://Assets/Menu Buttons/Try Again BUTTON (hovered).png" id="3_lm6u8"]
+[ext_resource type="Texture2D" uid="uid://bgubsp0bxq0sc" path="res://Assets/Menu Buttons/Main Menu BUTTON (not hovered).png" id="4_f0eod"]
+[ext_resource type="Texture2D" uid="uid://b1pjvq5dsh12y" path="res://Assets/Menu Buttons/Main Menu BUTTON (hovered).png" id="5_qxicy"]
+
+[node name="LevelFailedScreen" type="Node2D"]
+script = ExtResource("1_23aga")
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LevelFailedScreenBackground" type="Sprite2D" parent="Background"]
+position = Vector2(270, 480)
+texture = ExtResource("1_fwldl")
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TryAgain" type="TextureButton" parent="Buttons"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 459.0
+offset_right = 422.0
+offset_bottom = 559.0
+texture_normal = ExtResource("2_23aga")
+texture_hover = ExtResource("3_lm6u8")
+
+[node name="MainMenu" type="TextureButton" parent="Buttons"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 559.0
+offset_right = 422.0
+offset_bottom = 659.0
+texture_normal = ExtResource("4_f0eod")
+texture_hover = ExtResource("5_qxicy")
+
+[connection signal="pressed" from="Buttons/TryAgain" to="." method="_on_try_again_pressed"]
+[connection signal="pressed" from="Buttons/MainMenu" to="." method="_on_main_menu_pressed"]

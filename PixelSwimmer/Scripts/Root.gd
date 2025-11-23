@@ -8,6 +8,7 @@ extends Node2D
 @onready var player := $Player
 @onready var hud := $UILayer/HUD
 @onready var gos := $UILayer/GameOverScreen
+@onready var level_failed_screen = $UILayer/LevelFailedScreen
 @onready var pause_menu := $UILayer/PauseMenu
 @onready var options_menu := $UILayer/PauseMenu/OptionsMenu
 @onready var laser_container = $LaserContainer
@@ -114,7 +115,15 @@ func _ready() -> void:
 	enemy_scenes.append(all_enemy_scenes[0])
 	buff_scenes.append(all_buff_scenes[0])
 	
-	MenuMusic.play_menu_music(GAME_MUSIC)
+	if GameSession.mode == "survival":
+		MusicManager.play_survival_music()
+	elif GameSession.mode == "story":
+		if levels[GameSession.current_level].has("Boss"):
+			MusicManager.play_boss_music()
+		else:
+			MusicManager.play_story_music()
+	else:
+		MusicManager.play_menu_music()
 	
 	pause_menu.visible = false
 	SettingsManager.load_settings()
@@ -278,8 +287,7 @@ func _on_boss_hit():
 		boss_hit_sound.play()
 
 func _on_player_killed():
-	MenuMusic.play_game_over(GAME_OVER_MUSIC)
-	player_death_sound.play()
+	# Hide HUD & pause button for both modes
 	$UILayer/HUD/PauseButton.visible = false
 	$UILayer/HUD.visible = false
 
@@ -291,8 +299,23 @@ func _on_player_killed():
 	gos.set_high_score(high_score)
 	save_game()
 
-	await get_tree().create_timer(0.5).timeout
-	gos.visible = true
+	if GameSession.mode == "survival":
+		# Survival: game over screen
+		MusicManager.play_gameover_music()
+		await get_tree().create_timer(0.5).timeout
+		gos.visible = true
+	elif GameSession.mode == "story":
+		# Story: level failed screen instead
+		MusicManager.play_levelfailed_music()
+		await get_tree().create_timer(0.5).timeout
+		level_failed_screen.visible = true
+	else:
+		# Fallback: treat as survival
+		MusicManager.play_gameover_music()
+		await get_tree().create_timer(0.5).timeout
+		gos.visible = true
+
+	player_death_sound.play()
 
 #what happens when you pick up a buff (plays sound)
 func _on_buff_picked(buff_sound):
@@ -397,10 +420,11 @@ func _on_story_enemy_spawn_timer_timeout():
 func _on_boss_spawn_minions(count: int, boss: Boss) -> void:
 	for i in range(count):
 		var boss_minion := boss_minion_scene.instantiate()
-		boss_minion.global_position = boss.global_position  # or around the boss
-		enemy_container.add_child(boss_minion)
+		boss_minion.global_position = boss.global_position
+		
+		enemy_container.call_deferred("add_child", boss_minion)
 
-		# Connect minion death back to this boss
+		# Connect minion death back to boss AFTER it's added
 		if boss_minion.has_signal("enemy_killed"):
 			boss_minion.enemy_killed.connect(_on_boss_minion_killed.bind(boss))
 
@@ -426,6 +450,7 @@ func start_game(mode, current_level):
 		spawn_level(current_level)
 
 func show_level_complete_screen():
+	MusicManager.play_levelcompleted_music()
 	$UILayer/LevelCompletedScreen.visible = true
 	$UILayer/HUD/PauseButton.visible = false
 
