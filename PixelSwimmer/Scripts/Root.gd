@@ -393,7 +393,7 @@ func _on_story_enemy_spawn_timer_timeout():
 			enemy_instance.global_position = Vector2(273, -50)
 
 		elif enemy_type == "Boss":
-			enemy_instance.global_position = Vector2(273, 300)
+			enemy_instance.global_position = Vector2(273, 250)
 			enemy_instance.boss_died.connect(_on_boss_died)
 			# connect boss-specific signal here, inside the Boss branch
 			if enemy_instance.has_signal("spawn_minions"):

@@ -160,8 +160,8 @@ func apply_damage_buff(duration):
 # MOVEMENT + CLAMP
 # ───────────────────────────────────────────────
 func _physics_process(_delta):
-	var x := Input.get_axis("ui_left", "ui_right")
-	var y := Input.get_axis("ui_up", "ui_down")
+	var x := Input.get_axis("move_left", "move_right")
+	var y := Input.get_axis("move_up", "move_down")
 	var direction := Vector2(x, y)
 
 	# Horizontal movement

@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://duxr3xb44n25m"]
+
+[ext_resource type="Texture2D" uid="uid://df6o4jo567tg4" path="res://Assets/Level Button Assets/Chapter Complete Screen.png" id="1_hpy6w"]
+[ext_resource type="Texture2D" uid="uid://b6deltgs28ie7" path="res://Assets/Menu Buttons/Story Mode BUTTON (not hovered).png" id="2_2wje5"]
+[ext_resource type="Texture2D" uid="uid://cc8is7c1jkmb" path="res://Assets/Menu Buttons/Story Mode BUTTON (hovered).png" id="3_uoodg"]
+[ext_resource type="Texture2D" uid="uid://bgubsp0bxq0sc" path="res://Assets/Menu Buttons/Main Menu BUTTON (not hovered).png" id="4_p66v1"]
+[ext_resource type="Texture2D" uid="uid://b1pjvq5dsh12y" path="res://Assets/Menu Buttons/Main Menu BUTTON (hovered).png" id="5_fle14"]
+
+[node name="ChapterCompleteScreen" type="Node2D"]
+
+[node name="Background" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ChapterCompleteBackground" type="Sprite2D" parent="Background"]
+position = Vector2(270, 480)
+texture = ExtResource("1_hpy6w")
+
+[node name="Buttons" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="StoryMode" type="TextureButton" parent="Buttons"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 431.0
+offset_right = 422.0
+offset_bottom = 531.0
+texture_normal = ExtResource("2_2wje5")
+texture_hover = ExtResource("3_uoodg")
+
+[node name="MainMenu" type="TextureButton" parent="Buttons"]
+layout_mode = 0
+offset_left = 122.0
+offset_top = 531.0
+offset_right = 422.0
+offset_bottom = 631.0
+texture_normal = ExtResource("4_p66v1")
+texture_hover = ExtResource("5_fle14")

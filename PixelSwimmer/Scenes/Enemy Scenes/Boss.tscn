@@ -215,20 +215,23 @@ hp = 200
 death_sound = ExtResource("3_i61s2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.8, 0.8)
 sprite_frames = SubResource("SpriteFrames_bsn70")
 autoplay = "default"
 frame_progress = 0.36305064
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -59)
+position = Vector2(1.9999999, -27.000002)
+scale = Vector2(0.8, 0.8)
 shape = SubResource("CircleShape2D_afpow")
 
 [node name="FireTimer" type="Timer" parent="."]
 
 [node name="ShieldCanvas" type="CanvasLayer" parent="."]
 layer = 0
-offset = Vector2(273, 300)
-transform = Transform2D(1, 0, 0, 1, 273, 300)
+offset = Vector2(273, 250)
+scale = Vector2(0.8, 0.8)
+transform = Transform2D(0.8, 0, 0, 0.8, 273, 250)
 follow_viewport_enabled = true
 
 [node name="ShieldParticles" type="GPUParticles2D" parent="ShieldCanvas"]
