@@ -51,7 +51,7 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
 var levels = [
-	{"EnemySperm":1, "RedCell": 1, "Egg": 1}, #Level 1
+	{"EnemySperm":15, "RedCell": 15, "Egg": 1}, #Level 1
 	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "Egg": 1}, #Level 2
 	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "ExplodingEnemy": 5, "Egg": 1}, #Level 3
 	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 7, "Egg": 1}, #Level 4
@@ -93,7 +93,7 @@ func set_score(value):
 		enemy_scenes.append(all_enemy_scenes[3])
 	if score >= 1000 and all_enemy_scenes[4] not in enemy_scenes: #whitecells
 		enemy_scenes.append(all_enemy_scenes[4])
-	if score >= 0 and all_enemy_scenes[5] not in enemy_scenes: #parasite
+	if score >= 1500 and all_enemy_scenes[5] not in enemy_scenes: #parasite
 		enemy_scenes.append(all_enemy_scenes[5])
 	if score >= 2000 and all_enemy_scenes[6] not in enemy_scenes: #bossminions
 		enemy_scenes.append(all_enemy_scenes[6])

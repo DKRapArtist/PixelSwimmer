@@ -13,7 +13,8 @@ signal shield_changed(active: bool)
 #onready variables
 @onready var fire_timer = $FireTimer
 @onready var shield_particles = $ShieldCanvas/ShieldParticles
-@onready var health_bar = $HealthBarCanvas/HealthBar
+@onready var health_bar = $HealthBarContainer/HealthBar
+
 
 #variables
 var player: Node2D
@@ -99,7 +100,3 @@ func on_minion_died() -> void:
 
 func _physics_process(_delta: float) -> void:
 	pass
-
-func _process(_delta):
-	var screen_pos = get_viewport().get_camera_2d().unproject_position(global_position)
-	health_bar.position = screen_pos + Vector2(0, -50)

@@ -248,9 +248,12 @@ trail_lifetime = 1.0
 trail_section_subdivisions = 8
 process_material = SubResource("ParticleProcessMaterial_he3yb")
 
-[node name="HealthBarCanvas" type="CanvasLayer" parent="."]
+[node name="HealthBarContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 
-[node name="HealthBar" type="TextureProgressBar" parent="HealthBarCanvas"]
+[node name="HealthBar" type="TextureProgressBar" parent="HealthBarContainer"]
+layout_mode = 0
 offset_left = -109.0
 offset_top = -178.0
 offset_right = -45.0
