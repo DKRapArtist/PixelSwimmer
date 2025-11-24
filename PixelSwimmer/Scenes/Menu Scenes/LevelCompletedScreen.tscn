@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b1pjvq5dsh12y" path="res://Assets/Menu Buttons/Main Menu BUTTON (hovered).png" id="5_upi55"]
 
 [node name="LevelCompletedScreen" type="Node2D"]
+process_mode = 2
 script = ExtResource("1_wrsfr")
 
 [node name="Background" type="Control" parent="."]
@@ -27,6 +28,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="NextLevel" type="TextureButton" parent="Buttons"]
+process_mode = 2
 layout_mode = 0
 offset_left = 121.0
 offset_top = 436.0
@@ -36,6 +38,7 @@ texture_normal = ExtResource("3_3mwf0")
 texture_hover = ExtResource("4_hig6d")
 
 [node name="MainMenu" type="TextureButton" parent="Buttons"]
+process_mode = 2
 layout_mode = 0
 offset_left = 122.0
 offset_top = 543.0

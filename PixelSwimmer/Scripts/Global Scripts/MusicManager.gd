@@ -33,11 +33,17 @@ func _process(delta: float) -> void:
 			player.pitch_scale = max_pitch_scale
 	
 func _play_music(stream: AudioStream, reset_pitch := true, use_ramp := false) -> void:
+	#if the same music is already playing, dont restart it
+	if player.stream == stream and player.playing:
+		return 
+	
 	player.stop()
 	player.stream = stream
 	ramp_pitch = use_ramp
+	
 	if reset_pitch:
 		player.pitch_scale = min_pitch_scale
+		
 	player.play()
 
 

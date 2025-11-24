@@ -469,6 +469,7 @@ func start_game(mode, current_level):
 		spawn_level(current_level)
 
 func show_level_complete_screen():
+	get_tree().paused = true
 	MusicManager.play_levelcompleted_music()
 	$UILayer/LevelCompletedScreen.visible = true
 	$UILayer/HUD/PauseButton.visible = false
@@ -478,6 +479,12 @@ func show_level_complete_screen():
 	if next_level > GameSession.highest_unlocked_level:
 		GameSession.highest_unlocked_level = next_level
 		save_game()
+
+func show_chapter_complete_screen():
+	get_tree().paused = true
+	MusicManager.play_levelcompleted_music()
+	$UILayer/ChapterCompleteScreen.visible = true
+	$UILayer/HUD/PauseButton.visible = false
 
 func _on_next_level_pressed() -> void:
 	# Move to the next level index

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://byoikuyfq74cj"]
+[gd_scene load_steps=21 format=3 uid="uid://byoikuyfq74cj"]
 
 [ext_resource type="Script" uid="uid://c12vti6022ji0" path="res://Scripts/Root.gd" id="1_difym"]
 [ext_resource type="PackedScene" uid="uid://djwlm556wwhom" path="res://Scenes/Enemy Scenes/BossMinion.tscn" id="3_yiytj"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://b42o5vtp8dpl2" path="res://Scenes/Menu Scenes/LevelFailedScreen.tscn" id="17_626no"]
 [ext_resource type="Texture2D" uid="uid://dgwpep3vmh6sf" path="res://Assets/Menu Buttons/Pause BUTTON (Hovered).png" id="17_okppc"]
 [ext_resource type="PackedScene" uid="uid://ctmnc8vem7jt0" path="res://Scenes/Menu Scenes/pause_menu.tscn" id="18_0dy5o"]
+[ext_resource type="PackedScene" uid="uid://duxr3xb44n25m" path="res://Scenes/Menu Scenes/Chapters/ChapterCompleteScreen.tscn" id="18_6ebx2"]
 [ext_resource type="PackedScene" uid="uid://dcen0c2824kuh" path="res://Scenes/Menu Scenes/game_over_screen.tscn" id="19_7j4pg"]
 [ext_resource type="Texture2D" uid="uid://dufgfdbx8t0xd" path="res://Assets/Still PIXELS/bubble particle VERY SMALL.png" id="20_r2ss6"]
 
@@ -55,6 +56,7 @@ autostart = true
 wait_time = 2.0
 
 [node name="BuffSpawnTimer" type="Timer" parent="."]
+wait_time = 20.0
 autostart = true
 
 [node name="PlayerSpawn" type="Marker2D" parent="."]
@@ -138,6 +140,9 @@ visible = false
 visible = false
 
 [node name="LevelFailedScreen" parent="UILayer" instance=ExtResource("17_626no")]
+visible = false
+
+[node name="ChapterCompleteScreen" parent="UILayer" instance=ExtResource("18_6ebx2")]
 visible = false
 
 [node name="BubbleParticles" type="GPUParticles2D" parent="."]
