@@ -141,21 +141,23 @@ func _ready() -> void:
 	var save_file = FileAccess.open("user://save.data", FileAccess.READ)
 
 	if save_file:
-		if save_file.get_length() >= 8:
-			# File contains both integers
+		if save_file.get_length() >= 12:
 			high_score = save_file.get_32()
 			GameSession.highest_unlocked_level = save_file.get_32()
+			GameSession.highest_unlocked_chapter = save_file.get_32()
+		elif save_file.get_length() >= 8:
+			high_score = save_file.get_32()
+			GameSession.highest_unlocked_level = save_file.get_32()
+			GameSession.highest_unlocked_chapter = 0
 		else:
-			# File only contains high score
 			high_score = save_file.get_32()
 			GameSession.highest_unlocked_level = 0
+			GameSession.highest_unlocked_chapter = 0
 	else:
-	# No save file exists — initialize and create one
 		high_score = 0
 		GameSession.highest_unlocked_level = 0
+		GameSession.highest_unlocked_chapter = 0
 		save_game()
-
-
 		
 			## --------- DEBUG: WIPE PROGRESS ONCE ---------
 	#GameSession.highest_unlocked_level = 0
@@ -172,6 +174,7 @@ func save_game():
 	var save_file = FileAccess.open("user://save.data", FileAccess.WRITE)
 	save_file.store_32(high_score)
 	save_file.store_32(GameSession.highest_unlocked_level)
+	save_file.store_32(GameSession.highest_unlocked_chapter)
 
 func is_position_over_buff(pos: Vector2) -> bool:
 	for buff in buff_container.get_children():
@@ -485,6 +488,14 @@ func show_chapter_complete_screen():
 	MusicManager.play_levelcompleted_music()
 	$UILayer/ChapterCompleteScreen.visible = true
 	$UILayer/HUD/PauseButton.visible = false
+	
+		# Unlock next chapter
+	var finished_chapter = GameSession.current_chapter
+	var next_chapter = finished_chapter + 1
+
+	if next_chapter > GameSession.highest_unlocked_chapter:
+		GameSession.highest_unlocked_chapter = next_chapter
+		save_game()
 
 func _on_next_level_pressed() -> void:
 	# Move to the next level index

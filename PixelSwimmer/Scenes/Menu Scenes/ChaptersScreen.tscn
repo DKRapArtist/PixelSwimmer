@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdpqhet5pr4sm"]
+[gd_scene load_steps=14 format=3 uid="uid://bdpqhet5pr4sm"]
 
 [ext_resource type="Texture2D" uid="uid://d0rmhscy6f1rl" path="res://Assets/Chapters Screen Assets/Chapters Menu Screen.png" id="1_o5h7k"]
 [ext_resource type="Script" uid="uid://dv6rpt1r4a75h" path="res://Scripts/Menu Scripts/ChaptersScreen.gd" id="1_vg3ar"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c8xlenj7fikq8" path="res://Assets/Chapters Screen Assets/Chapter 2 BUTTON (not hovered).png" id="4_luj2l"]
 [ext_resource type="Texture2D" uid="uid://dmb1bt74n3fwk" path="res://Assets/Chapters Screen Assets/Chapter 2 BUTTON (hovered).png" id="5_w5g63"]
 [ext_resource type="Texture2D" uid="uid://cs85cakvkgi1w" path="res://Assets/Chapters Screen Assets/Chapter 3 BUTTON (not hovered).png" id="6_h7y76"]
+[ext_resource type="Texture2D" uid="uid://dgaiakbbqn3w2" path="res://Assets/Level Button Assets/Chapters Locked Button (not hovered).png" id="7_5wnku"]
 [ext_resource type="Texture2D" uid="uid://dgv525nx1q32y" path="res://Assets/Chapters Screen Assets/Chapter 3 BUTTON (hovered).png" id="7_ukttb"]
 [ext_resource type="Texture2D" uid="uid://bwchv7e2buxax" path="res://Assets/Chapters Screen Assets/Chapter 4 BUTTON (not hovered).png" id="8_cx5ka"]
 [ext_resource type="Texture2D" uid="uid://dkhi6wepjia78" path="res://Assets/Chapters Screen Assets/Chapter 4 BUTTON (hovered).png" id="9_60siw"]
@@ -49,6 +50,7 @@ offset_right = 421.0
 offset_bottom = 483.0
 texture_normal = ExtResource("4_luj2l")
 texture_hover = ExtResource("5_w5g63")
+texture_disabled = ExtResource("7_5wnku")
 
 [node name="Chapter3" type="TextureButton" parent="Buttons"]
 layout_mode = 0
@@ -58,6 +60,7 @@ offset_right = 420.0
 offset_bottom = 576.0
 texture_normal = ExtResource("6_h7y76")
 texture_hover = ExtResource("7_ukttb")
+texture_disabled = ExtResource("7_5wnku")
 
 [node name="Chapter4" type="TextureButton" parent="Buttons"]
 layout_mode = 0
@@ -67,6 +70,7 @@ offset_right = 421.0
 offset_bottom = 668.0
 texture_normal = ExtResource("8_cx5ka")
 texture_hover = ExtResource("9_60siw")
+texture_disabled = ExtResource("7_5wnku")
 
 [node name="BackButton" type="TextureButton" parent="Buttons"]
 layout_mode = 0
@@ -78,4 +82,7 @@ texture_normal = ExtResource("10_3p7on")
 texture_hover = ExtResource("11_uw2p1")
 
 [connection signal="pressed" from="Buttons/Chapter1" to="." method="_on_chapter_1_pressed"]
+[connection signal="pressed" from="Buttons/Chapter2" to="." method="_on_chapter_2_pressed"]
+[connection signal="pressed" from="Buttons/Chapter3" to="." method="_on_chapter_3_pressed"]
+[connection signal="pressed" from="Buttons/Chapter4" to="." method="_on_chapter_4_pressed"]
 [connection signal="pressed" from="Buttons/BackButton" to="." method="_on_back_button_pressed"]

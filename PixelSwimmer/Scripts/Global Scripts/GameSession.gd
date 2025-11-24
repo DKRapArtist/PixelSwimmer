@@ -2,8 +2,10 @@ extends Node
 
 var mode = "survival"
 var current_level = 0
-var highest_unlocked_level: int = 0
+var current_chapter = 0
 var high_score: int = 0
+var highest_unlocked_level: int = 0
+var highest_unlocked_chapter: int = 0
 
 func _ready():
 	load_save()

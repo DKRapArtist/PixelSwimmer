@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dnqke2xccxg7l"]
+[gd_scene load_steps=7 format=3 uid="uid://dnqke2xccxg7l"]
 
 [ext_resource type="Texture2D" uid="uid://bmjhv45u1m5qx" path="res://Assets/Level Button Assets/Coming Soon Screen.png" id="1_ahbo1"]
+[ext_resource type="Script" uid="uid://d4i7pa0ipdt7g" path="res://Scripts/Menu Scripts/ComingSoonScreen.gd" id="1_c1jcn"]
 [ext_resource type="Texture2D" uid="uid://crlfeyg4504ld" path="res://Assets/Menu Buttons/Back BUTTON (not hovered).png" id="2_1w4rc"]
 [ext_resource type="Texture2D" uid="uid://kivgdmkjc8lo" path="res://Assets/Menu Buttons/Back BUTTON (hovered).png" id="3_d5pns"]
 [ext_resource type="Texture2D" uid="uid://bgubsp0bxq0sc" path="res://Assets/Menu Buttons/Main Menu BUTTON (not hovered).png" id="4_fewmo"]
 [ext_resource type="Texture2D" uid="uid://b1pjvq5dsh12y" path="res://Assets/Menu Buttons/Main Menu BUTTON (hovered).png" id="5_gjbk1"]
 
 [node name="ComingSoonScreen" type="Node2D"]
+script = ExtResource("1_c1jcn")
 
 [node name="Background" type="Control" parent="."]
 layout_mode = 3
@@ -41,3 +43,6 @@ offset_right = 422.0
 offset_bottom = 613.0
 texture_normal = ExtResource("4_fewmo")
 texture_hover = ExtResource("5_gjbk1")
+
+[connection signal="pressed" from="Buttons/Back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="Buttons/MainMenu" to="." method="_on_main_menu_pressed"]
