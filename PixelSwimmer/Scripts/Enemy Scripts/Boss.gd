@@ -1,14 +1,21 @@
 class_name Boss
 extends Enemy
 
+#signals
 signal boss_died
 signal spawn_minions(count: int)
 signal shield_changed(active: bool)
 
+#export variables
 @export var laser_scene: PackedScene
 @export var fire_interval := 1.5
+
+#onready variables
 @onready var fire_timer = $FireTimer
 @onready var shield_particles = $ShieldCanvas/ShieldParticles
+@onready var health_bar = $HealthBarCanvas/HealthBar
+
+#variables
 var player: Node2D
 var max_hp = 200
 var shield_active = false
@@ -21,6 +28,10 @@ func _ready() -> void:
 	fire_timer.wait_time = fire_interval
 	fire_timer.start()
 	shield_particles.visible = false  # start hidden
+	
+	#health bar
+	health_bar.max_value = max_hp
+	health_bar.value = hp
 	
 func _on_fire_timer_timeout() -> void:
 	if player == null or not is_instance_valid(player):
@@ -50,6 +61,9 @@ func take_damage(amount: int, source: Node = null) -> void:
 		return
 		
 	hp -= amount
+	
+	#update healthbar
+	health_bar.value = hp
 	
 	if hp <= 0:
 		die(source)
@@ -85,3 +99,7 @@ func on_minion_died() -> void:
 
 func _physics_process(_delta: float) -> void:
 	pass
+
+func _process(_delta):
+	var screen_pos = get_viewport().get_camera_2d().unproject_position(global_position)
+	health_bar.position = screen_pos + Vector2(0, -50)

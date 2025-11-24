@@ -250,12 +250,14 @@ process_material = SubResource("ParticleProcessMaterial_he3yb")
 
 [node name="HealthBarCanvas" type="CanvasLayer" parent="."]
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="HealthBarCanvas"]
+[node name="HealthBar" type="TextureProgressBar" parent="HealthBarCanvas"]
 offset_left = -109.0
 offset_top = -178.0
 offset_right = -45.0
 offset_bottom = -168.0
 scale = Vector2(3.5, 2)
+max_value = 200.0
+value = 200.0
 texture_under = ExtResource("5_jwqgo")
 texture_progress = ExtResource("6_plraq")
 

@@ -51,7 +51,7 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
 var levels = [
-	{"EnemySperm":15, "RedCell": 15, "Egg": 1}, #Level 1
+	{"EnemySperm":1, "RedCell": 1, "Egg": 1}, #Level 1
 	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "Egg": 1}, #Level 2
 	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "ExplodingEnemy": 5, "Egg": 1}, #Level 3
 	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 7, "Egg": 1}, #Level 4
@@ -93,7 +93,7 @@ func set_score(value):
 		enemy_scenes.append(all_enemy_scenes[3])
 	if score >= 1000 and all_enemy_scenes[4] not in enemy_scenes: #whitecells
 		enemy_scenes.append(all_enemy_scenes[4])
-	if score >= 1500 and all_enemy_scenes[5] not in enemy_scenes: #parasite
+	if score >= 0 and all_enemy_scenes[5] not in enemy_scenes: #parasite
 		enemy_scenes.append(all_enemy_scenes[5])
 	if score >= 2000 and all_enemy_scenes[6] not in enemy_scenes: #bossminions
 		enemy_scenes.append(all_enemy_scenes[6])
@@ -139,18 +139,23 @@ func _ready() -> void:
 
 	# ---------- SAVE LOADING FIXED HERE ----------
 	var save_file = FileAccess.open("user://save.data", FileAccess.READ)
-	if save_file != null:
-		high_score = save_file.get_32()
-		
-		# If file has more than 4 bytes, there is a second int stored (highest_unlocked_level)
-		if save_file.get_length() > 4:
+
+	if save_file:
+		if save_file.get_length() >= 8:
+			# File contains both integers
+			high_score = save_file.get_32()
 			GameSession.highest_unlocked_level = save_file.get_32()
 		else:
+			# File only contains high score
+			high_score = save_file.get_32()
 			GameSession.highest_unlocked_level = 0
 	else:
+	# No save file exists — initialize and create one
 		high_score = 0
 		GameSession.highest_unlocked_level = 0
 		save_game()
+
+
 		
 			## --------- DEBUG: WIPE PROGRESS ONCE ---------
 	#GameSession.highest_unlocked_level = 0
