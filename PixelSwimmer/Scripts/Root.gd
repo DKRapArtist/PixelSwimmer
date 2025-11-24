@@ -71,7 +71,7 @@ const GAME_OVER_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer 
 #player score
 var score := 0:
 	set = set_score
-var high_score
+var high_score: int = 0
 #background movment speed
 var scroll_speed = 300
 #making buffs stay away from enemy
@@ -137,12 +137,25 @@ func _ready() -> void:
 
 	player.global_position = player_spawn.global_position
 
+	# ---------- SAVE LOADING FIXED HERE ----------
 	var save_file = FileAccess.open("user://save.data", FileAccess.READ)
 	if save_file != null:
 		high_score = save_file.get_32()
+		
+		# If file has more than 4 bytes, there is a second int stored (highest_unlocked_level)
+		if save_file.get_length() > 4:
+			GameSession.highest_unlocked_level = save_file.get_32()
+		else:
+			GameSession.highest_unlocked_level = 0
 	else:
 		high_score = 0
+		GameSession.highest_unlocked_level = 0
 		save_game()
+		
+			## --------- DEBUG: WIPE PROGRESS ONCE ---------
+	#GameSession.highest_unlocked_level = 0
+	#save_game()
+	#print("DEBUG wipe: highest_unlocked_level = ", GameSession.highest_unlocked_level)
 
 	score = 0
 	player.laser_shot.connect(_on_player_laser_shot)
@@ -153,6 +166,7 @@ func _ready() -> void:
 func save_game():
 	var save_file = FileAccess.open("user://save.data", FileAccess.WRITE)
 	save_file.store_32(high_score)
+	save_file.store_32(GameSession.highest_unlocked_level)
 
 func is_position_over_buff(pos: Vector2) -> bool:
 	for buff in buff_container.get_children():
@@ -453,6 +467,12 @@ func show_level_complete_screen():
 	MusicManager.play_levelcompleted_music()
 	$UILayer/LevelCompletedScreen.visible = true
 	$UILayer/HUD/PauseButton.visible = false
+	# Unlock next level
+	var finished_level = GameSession.current_level
+	var next_level = finished_level + 1
+	if next_level > GameSession.highest_unlocked_level:
+		GameSession.highest_unlocked_level = next_level
+		save_game()
 
 func _on_next_level_pressed() -> void:
 	# Move to the next level index
