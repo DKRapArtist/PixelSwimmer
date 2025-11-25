@@ -15,12 +15,20 @@ func load_save():
 	var save_file = FileAccess.open("user://save.data", FileAccess.READ)
 
 	if save_file:
-		if save_file.get_length() >= 8:
+		var length := save_file.get_length()
+		if length >= 12:
 			high_score = save_file.get_32()
 			highest_unlocked_level = save_file.get_32()
+			highest_unlocked_chapter = save_file.get_32()
+		elif length >= 8:
+			high_score = save_file.get_32()
+			highest_unlocked_level = save_file.get_32()
+			highest_unlocked_chapter = 0
 		else:
 			high_score = save_file.get_32()
 			highest_unlocked_level = 0
+			highest_unlocked_chapter = 0
 	else:
 		high_score = 0
 		highest_unlocked_level = 0
+		highest_unlocked_chapter = 0

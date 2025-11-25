@@ -51,15 +51,15 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
 var levels = [
-	{"EnemySperm":15, "RedCell": 15, "Egg": 1}, #Level 1
-	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "Egg": 1}, #Level 2
-	{"EnemySperm":15, "RedCell": 15, "MucusEnemy": 5, "ExplodingEnemy": 5, "Egg": 1}, #Level 3
-	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 7, "Egg": 1}, #Level 4
-	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Egg": 1}, #Level 5
-	{"EnemySperm":5, "MucusEnemy": 10, "ExplodingEnemy": 10, "WhiteCell": 10, "Egg": 1}, #Level 6
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 10, "WhiteCell": 5, "Parasite": 5, "Egg": 1}, #Level 7
-	{"EnemySperm":5, "MucusEnemy": 3, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 2, "Egg": 1}, #Level 8
-	{"EnemySperm":5, "MucusEnemy": 1, "ExplodingEnemy": 10, "WhiteCell": 10, "Parasite": 10, "BossMinion": 5, "Egg": 1}, #Level 9
+	{"EnemySperm":1, "RedCell": 1, "Egg": 1}, #Level 1
+	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "Egg": 1}, #Level 2
+	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "ExplodingEnemy": 1, "Egg": 1}, #Level 3
+	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "ExplodingEnemy": 7, "Egg": 1}, #Level 4
+	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Egg": 1}, #Level 5
+	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Egg": 1}, #Level 6
+	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Parasite": 1, "Egg": 1}, #Level 7
+	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Parasite": 1, "BossMinion": 1, "Egg": 1}, #Level 8
+	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Parasite": 1, "BossMinion": 1, "Egg": 1}, #Level 9
 	{"Boss": 1,"Egg": 1} #BossLevel
 ]
 var enemy_spawn_queue = []
@@ -109,6 +109,9 @@ func set_score(value):
 
 #READY FUNCTION #run this code when the scene starts and everything is in place
 func _ready() -> void:
+	#level text on ui
+	hud.set_level_text(get_level_text())
+	
 	start_game(GameSession.mode, GameSession.current_level)
 	level_completed_screen.next_level_pressed.connect(_on_next_level_pressed)
 	
@@ -163,6 +166,9 @@ func _ready() -> void:
 	#GameSession.highest_unlocked_level = 0
 	#save_game()
 	#print("DEBUG wipe: highest_unlocked_level = ", GameSession.highest_unlocked_level)
+	
+	#GameSession.highest_unlocked_chapter = 0
+	#save_game()
 
 	score = 0
 	player.laser_shot.connect(_on_player_laser_shot)
@@ -512,3 +518,15 @@ func _on_next_level_pressed() -> void:
 
 func _on_boss_died() -> void:
 	boss_dead = true
+
+#level text for ui (other part in ready)
+func get_level_text() -> String:
+	if GameSession.mode == "story":
+		var level_data = levels[GameSession.current_level]
+
+		if level_data.has("Boss"):
+			return "BOSS LEVEL"
+		else:
+			return "Level " + str(GameSession.current_level + 1)
+
+	return ""

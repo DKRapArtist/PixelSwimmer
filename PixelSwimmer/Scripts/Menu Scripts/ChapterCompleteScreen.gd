@@ -3,7 +3,7 @@ extends Node2D
 
 
 func _on_story_mode_pressed() -> void:
-	get_tree().paused = true
+	get_tree().paused = false
 	MusicManager.play_menu_music()
 	get_tree().change_scene_to_file("res://Scenes/Menu Scenes/ChaptersScreen.tscn")
 

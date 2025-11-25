@@ -9,3 +9,6 @@ func hide_score():
 
 func show_score():
 	$Score.show()
+
+func set_level_text(text: String):
+	$LevelLabel.text = text
