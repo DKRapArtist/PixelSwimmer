@@ -1,6 +1,7 @@
 extends Enemy
 
 @export var retaliate_damage := 3
+@export var counts_as_kill := false
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:

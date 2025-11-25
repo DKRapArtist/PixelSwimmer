@@ -52,14 +52,14 @@ var all_buff_scenes: Array[PackedScene] = [
 ]
 var levels = [
 	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "Egg": 1, "RequiredKills": 10}, #Lvl 1
-	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 10, "Egg": 1}, #Lvl 2
-	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 10, "ExplodingEnemy": 15, "WhiteCell": 5, "Egg": 1}, #Lvl 3
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 5, "Egg": 1}, #Lvl 4
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "Egg": 1}, #Lvl 5
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 15, "Parasite": 15, "Egg": 1}, #Lvl 6
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 20, "Parasite": 20, "BossMinion": 5, "Egg": 1}, #Lvl 7
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 10, "Egg": 1}, #Lvl 8
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 15, "Egg": 1}, #Lvl 8
+	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 10, "Egg": 1, "RequiredKills": 10}, #Lvl 2
+	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 10, "ExplodingEnemy": 15, "WhiteCell": 20, "Egg": 1}, #Lvl 3
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 5, "Egg": 1, "RequiredKills": 40}, #Lvl 4
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "Egg": 1, "RequiredKills": 45}, #Lvl 5
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 15, "Parasite": 15, "Egg": 1, "RequiredKills": 60}, #Lvl 6
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 20, "Parasite": 20, "BossMinion": 5, "Egg": 1, "RequiredKills": 90}, #Lvl 7
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 10, "Egg": 1, "RequiredKills": 50}, #Lvl 8
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 15, "Egg": 1, "RequiredKills": 55}, #Lvl 8
 	{"Boss": 1,"Egg": 1} #BossLevel
 ]
 var enemy_spawn_queue = []
@@ -293,27 +293,23 @@ func _on_enemy_spawn_timer_timeout() -> void:
 	enemy_container.add_child(e)
 
 func _on_enemy_killed(points, death_sound, source):
-	# Play death sound if available
 	if death_sound:
 		death_sfx_player.stream = death_sound
 		death_sfx_player.play()
 
-#counts kills the player gets
-	if source is Player:
-		kills += 1
-		hud.update_kills(kills)
-
-	# Award points based on the source of the kill
+	# Only count kills and kills-based score when the PLAYER killed it
 	if is_instance_valid(source):
 		if source is Player:
-			score += points  # Player kill: use provided 'points'
-		elif source is BacteriaMinion:
+			kills += 1
+			hud.update_kills(kills)
 			score += points
-			# Or just score += points if you want minion kills to give full value
+		elif source is BacteriaMinion:
+			# Minion kills give score but not kills (optional)
+			score += points
 
-	# Update the high score if necessary
 	if score > high_score:
 		high_score = score
+
 
 func _on_enemy_hit():
 	enemy_hit_sound.play()
@@ -485,7 +481,7 @@ func _on_boss_spawn_minions(count: int, boss: Boss) -> void:
 
 func _on_boss_minion_killed(points, death_sound, source, boss: Boss) -> void:
 	# still let your normal kill logic run if you want:
-	_on_enemy_killed(points, death_sound, source)
+	_on_enemy_killed(points, death_sound, source,)
 
 	if is_instance_valid(boss):
 		boss.on_minion_died()
