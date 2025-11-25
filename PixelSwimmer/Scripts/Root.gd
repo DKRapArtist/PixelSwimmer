@@ -51,15 +51,15 @@ var all_buff_scenes: Array[PackedScene] = [
 	preload("res://Scenes/Buffs Scenes/AntidoteBuff.tscn")
 ]
 var levels = [
-	{"EnemySperm":1, "RedCell": 1, "Egg": 1}, #Level 1
-	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "Egg": 1}, #Level 2
-	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "ExplodingEnemy": 1, "Egg": 1}, #Level 3
-	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "ExplodingEnemy": 7, "Egg": 1}, #Level 4
-	{"EnemySperm":1, "RedCell": 1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Egg": 1}, #Level 5
-	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Egg": 1}, #Level 6
-	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Parasite": 1, "Egg": 1}, #Level 7
-	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Parasite": 1, "BossMinion": 1, "Egg": 1}, #Level 8
-	{"EnemySperm":1, "MucusEnemy": 1, "ExplodingEnemy": 1, "WhiteCell": 1, "Parasite": 1, "BossMinion": 1, "Egg": 1}, #Level 9
+	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "Egg": 1, "RequiredKills": 10}, #Lvl 1
+	{"EnemySperm":5, "RedCell": 5, "MucusEnemy": 10, "ExplodingEnemy": 10, "Egg": 1}, #Lvl 2
+	{"EnemySperm":5, "RedCell": 2, "MucusEnemy": 10, "ExplodingEnemy": 15, "WhiteCell": 5, "Egg": 1}, #Lvl 3
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 5, "Egg": 1}, #Lvl 4
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "Egg": 1}, #Lvl 5
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 15, "Parasite": 15, "Egg": 1}, #Lvl 6
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 20, "Parasite": 20, "BossMinion": 5, "Egg": 1}, #Lvl 7
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 10, "Egg": 1}, #Lvl 8
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 15, "Egg": 1}, #Lvl 8
 	{"Boss": 1,"Egg": 1} #BossLevel
 ]
 var enemy_spawn_queue = []
@@ -72,6 +72,8 @@ const GAME_OVER_MUSIC := preload("res://Assets/Sound Design/Music/Pixel Swimmer 
 var score := 0:
 	set = set_score
 var high_score: int = 0
+var kills = 0
+var required_kills = 0
 #background movment speed
 var scroll_speed = 300
 #making buffs stay away from enemy
@@ -241,7 +243,9 @@ func _on_pause_button_pressed() -> void:
 # ------------------------------------------------------------
 
 func _process(delta: float) -> void:
-
+	if get_tree().paused:
+		print("⚠ GAME IS PAUSED during gameplay! Source of pause detected.")
+	
 	if timer.wait_time > 0.5:
 		timer.wait_time -= delta*0.005
 	elif timer.wait_time < 0.5:
@@ -294,6 +298,11 @@ func _on_enemy_killed(points, death_sound, source):
 		death_sfx_player.stream = death_sound
 		death_sfx_player.play()
 
+#counts kills the player gets
+	if source is Player:
+		kills += 1
+		hud.update_kills(kills)
+
 	# Award points based on the source of the kill
 	if is_instance_valid(source):
 		if source is Player:
@@ -315,6 +324,14 @@ func _on_boss_hit():
 		boss_hit_sound.play()
 
 func _on_player_killed():
+	print("BLOCKERS:")
+	for node in $UILayer.get_children():
+		if node is Control:
+			print("   ", node.name, 
+				  "visible:", node.visible, 
+			 	 "mouse_filter:", node.mouse_filter)
+
+
 	# Hide HUD & pause button for both modes
 	$UILayer/HUD/PauseButton.visible = false
 	$UILayer/HUD.visible = false
@@ -335,7 +352,7 @@ func _on_player_killed():
 	elif GameSession.mode == "story":
 		# Story: level failed screen instead
 		MusicManager.play_levelfailed_music()
-		await get_tree().create_timer(0.5).timeout
+		await get_tree().create_timer(0.5, false).timeout
 		level_failed_screen.visible = true
 	else:
 		# Fallback: treat as survival
@@ -388,26 +405,35 @@ func _spawn_minion() -> void:
 func spawn_level(level_index):
 	print("Spawning level:", level_index)
 	enemy_spawn_queue.clear()
+
 	var current_level = levels[level_index]
 	var last_enemy_type = "Egg"
-	
-	var shuffled_enemies = []
-	var last_enemies = 0
-	
-	for enemy_type in current_level:
+
+	var shuffled_enemies: Array = []
+	var last_enemies := 0
+
+	for enemy_type in current_level.keys():
+		# Skip metadata like RequiredKills or Boss
+		var path = "res://Scenes/Enemy Scenes/%s.tscn" % enemy_type
+		if not ResourceLoader.exists(path):
+			continue
+
 		if enemy_type == last_enemy_type:
 			last_enemies = current_level[enemy_type]
 		else:
 			for i in range(current_level[enemy_type]):
 				shuffled_enemies.append(enemy_type)
-				
+
 	shuffled_enemies.shuffle()
 	enemy_spawn_queue = shuffled_enemies
-	
+
+	# Add last group (usually Egg)
 	for i in range(last_enemies):
-			enemy_spawn_queue.append(last_enemy_type)
-			enemy_queue_index = 0
-			story_enemy_spawn_timer.start()
+		enemy_spawn_queue.append(last_enemy_type)
+
+	enemy_queue_index = 0
+	story_enemy_spawn_timer.start()
+
 
 func _on_story_enemy_spawn_timer_timeout():
 	if enemy_queue_index < enemy_spawn_queue.size():
@@ -444,6 +470,7 @@ func _on_story_enemy_spawn_timer_timeout():
 		enemy_queue_index += 1
 	else:
 		story_enemy_spawn_timer.stop()
+		_check_level_completion()
 
 func _on_boss_spawn_minions(count: int, boss: Boss) -> void:
 	for i in range(count):
@@ -464,18 +491,36 @@ func _on_boss_minion_killed(points, death_sound, source, boss: Boss) -> void:
 		boss.on_minion_died()
 
 func start_game(mode, current_level):
-	# Always disconnect to prevent multiple connections (safe even if not connected)
+	# Reset kill count for every level
+	kills = 0
+
+	# Always disconnect old connections
 	timer.timeout.disconnect(_on_enemy_spawn_timer_timeout)
-	
+
+	# ----------------------------------------
+	# SURVIVAL MODE → HIDE KILL UI
+	# ----------------------------------------
 	if mode == "survival":
+		$UILayer/HUD/KillLabel.visible = false
 		timer.timeout.connect(_on_enemy_spawn_timer_timeout)
 		timer.start()
-	elif mode == "story":
-		$UILayer/HUD.hide_score()
-		timer.stop()
-		is_boss_level = levels[current_level].has("Boss")
-		boss_dead = not is_boss_level
-		spawn_level(current_level)
+		return
+	# STORY MODE
+	# ----------------------------------------
+	var level_data = levels[current_level]
+	kills = 0
+
+	# Required kills (only applies to non-boss levels)
+	if level_data.has("RequiredKills"):
+		required_kills = level_data["RequiredKills"]
+	else:
+		required_kills = 0
+	$UILayer/HUD.hide_score()
+	timer.stop()
+
+	is_boss_level = level_data.has("Boss")
+	boss_dead = not is_boss_level
+	spawn_level(current_level)
 
 func show_level_complete_screen():
 	get_tree().paused = true
@@ -530,3 +575,17 @@ func get_level_text() -> String:
 			return "Level " + str(GameSession.current_level + 1)
 
 	return ""
+
+func _check_level_completion():
+	if required_kills > 0 and kills < required_kills and not is_boss_level:
+		_fail_level_due_to_kills()
+	elif is_boss_level and boss_dead:
+		show_chapter_complete_screen()
+	else:
+		show_level_complete_screen()
+
+func _fail_level_due_to_kills():
+	get_tree().paused = true
+	MusicManager.play_levelfailed_music()
+	level_failed_screen.show_message("Not enough kills!\nYou got %d / %d" % [kills, required_kills])
+	level_failed_screen.visible = true

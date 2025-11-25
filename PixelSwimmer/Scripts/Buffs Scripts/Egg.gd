@@ -10,11 +10,8 @@ func _on_body_entered(body):
 
 		var main = get_tree().current_scene
 
-		# Check boss level using Root.gd's variable
-		if main.is_boss_level:
-			main.show_chapter_complete_screen()
-		else:
-			main.show_level_complete_screen()
+		# Let Root.gd decide whether it's failed or completed
+		main._check_level_completion()
 
 		picked_up.emit(buff_sound)
 		queue_free()

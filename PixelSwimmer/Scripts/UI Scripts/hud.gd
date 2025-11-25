@@ -12,3 +12,6 @@ func show_score():
 
 func set_level_text(text: String):
 	$LevelLabel.text = text
+
+func update_kills(k):
+	$KillLabel.text = "Kills: %d" % k

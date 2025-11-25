@@ -50,7 +50,7 @@ boss_minion_scene = ExtResource("3_yiytj")
 [node name="BuffContainer" type="Node2D" parent="."]
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.2999999999999998
 autostart = true
 
 [node name="StoryEnemySpawnTimer" type="Timer" parent="."]
@@ -64,7 +64,7 @@ autostart = true
 position = Vector2(275, 851)
 
 [node name="MinionSpawnPoint" type="Marker2D" parent="."]
-position = Vector2(380, 860)
+position = Vector2(380, 851)
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 repeat_size = Vector2(0, 958.865)
@@ -145,16 +145,30 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 3
 theme_override_fonts/font = ExtResource("14_difym")
 
-[node name="PauseMenu" parent="UILayer" instance=ExtResource("18_0dy5o")]
-visible = false
+[node name="KillLabel" type="Label" parent="UILayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 26.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.84705883, 0.74509805, 0.16862746, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("14_difym")
 
-[node name="GameOverScreen" parent="UILayer" instance=ExtResource("19_7j4pg")]
+[node name="PauseMenu" parent="UILayer" instance=ExtResource("18_0dy5o")]
 visible = false
 
 [node name="LevelCompletedScreen" parent="UILayer" instance=ExtResource("14_75oan")]
 visible = false
 
 [node name="LevelFailedScreen" parent="UILayer" instance=ExtResource("17_626no")]
+visible = false
+
+[node name="GameOverScreen" parent="UILayer" instance=ExtResource("19_7j4pg")]
 visible = false
 
 [node name="ChapterCompleteScreen" parent="UILayer" instance=ExtResource("18_6ebx2")]
