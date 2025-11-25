@@ -299,12 +299,9 @@ func _on_enemy_killed(points, death_sound, source):
 
 	# Only count kills and kills-based score when the PLAYER killed it
 	if is_instance_valid(source):
-		if source is Player:
+		if source is Player or BacteriaMinion:
 			kills += 1
 			hud.update_kills(kills)
-			score += points
-		elif source is BacteriaMinion:
-			# Minion kills give score but not kills (optional)
 			score += points
 
 	if score > high_score:
@@ -515,6 +512,7 @@ func start_game(mode, current_level):
 	timer.stop()
 
 	is_boss_level = level_data.has("Boss")
+	$UILayer/HUD/KillLabel.visible = false
 	boss_dead = not is_boss_level
 	spawn_level(current_level)
 
