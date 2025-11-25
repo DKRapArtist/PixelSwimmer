@@ -21,6 +21,7 @@ extends Node2D
 @onready var minion_spawn := $MinionSpawnPoint
 @onready var pb = $Parallax2D
 @onready var level_completed_screen: Node2D = $UILayer/LevelCompletedScreen
+@onready var kill_label = $UILayer/HUD/KillLabel
 
 # SFX
 @onready var player_shooting_sound = $SFX/PlayerShooting
@@ -59,7 +60,7 @@ var levels = [
 	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 15, "Parasite": 15, "Egg": 1, "RequiredKills": 60}, #Lvl 6
 	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 20, "Parasite": 20, "BossMinion": 5, "Egg": 1, "RequiredKills": 90}, #Lvl 7
 	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 10, "Egg": 1, "RequiredKills": 50}, #Lvl 8
-	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 15, "Egg": 1, "RequiredKills": 55}, #Lvl 8
+	{"EnemySperm":5, "MucusEnemy": 5, "ExplodingEnemy": 20, "WhiteCell": 10, "Parasite": 10, "BossMinion": 15, "Egg": 1, "RequiredKills": 55}, #Lvl 9
 	{"Boss": 1,"Egg": 1} #BossLevel
 ]
 var enemy_spawn_queue = []
@@ -300,9 +301,12 @@ func _on_enemy_killed(points, death_sound, source):
 	# Only count kills and kills-based score when the PLAYER killed it
 	if is_instance_valid(source):
 		if source is Player or BacteriaMinion:
-			kills += 1
-			hud.update_kills(kills)
+			required_kills -= 1
+			if required_kills < 0:
+				required_kills = 0
 			score += points
+
+	kill_label.text = "Kills Left: %d" % required_kills
 
 	if score > high_score:
 		high_score = score
@@ -508,12 +512,17 @@ func start_game(mode, current_level):
 		required_kills = level_data["RequiredKills"]
 	else:
 		required_kills = 0
-	$UILayer/HUD.hide_score()
-	timer.stop()
 
 	is_boss_level = level_data.has("Boss")
-	$UILayer/HUD/KillLabel.visible = false
 	boss_dead = not is_boss_level
+
+	if is_boss_level:
+		$UILayer/HUD/KillLabel.visible = false
+	else:
+		$UILayer/HUD/KillLabel.visible = true
+	
+	$UILayer/HUD.hide_score()
+	timer.stop()
 	spawn_level(current_level)
 
 func show_level_complete_screen():
@@ -579,7 +588,7 @@ func _check_level_completion():
 		show_level_complete_screen()
 
 func _fail_level_due_to_kills():
+	$UILayer/HUD/PauseButton.visible = false
 	get_tree().paused = true
 	MusicManager.play_levelfailed_music()
-	level_failed_screen.show_message("Not enough kills!\nYou got %d / %d" % [kills, required_kills])
 	level_failed_screen.visible = true
