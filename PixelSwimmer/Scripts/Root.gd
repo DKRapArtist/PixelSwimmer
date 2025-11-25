@@ -589,6 +589,6 @@ func _check_level_completion():
 
 func _fail_level_due_to_kills():
 	$UILayer/HUD/PauseButton.visible = false
-	get_tree().paused = true
+	get_tree().paused = false
 	MusicManager.play_levelfailed_music()
 	level_failed_screen.visible = true
